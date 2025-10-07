@@ -1,0 +1,43 @@
+[
+    {
+        "description": "EMA10>EMA10",
+        "sourceTicker": "AGRO",
+        "parameter1": 1,
+        "condition": 1,
+        "parameter2": 2,
+        "targetTickers": [
+            "2",
+            "1"
+        ],
+        "userId": 1,
+        "id": 13,
+        "active": false,
+        "targetTicker": "EDENOR",
+        "ringing": true
+    },
+    {
+        "description": "asda",
+        "sourceTicker": "AGRO",
+        "parameter1": 1,
+        "condition": 1,
+        "parameter2": 2,
+        "targetTickers": [
+            "1"
+        ],
+        "active": true,
+        "userId": 1,
+        "id": 14,
+        "ringing": true
+    },
+    {
+        "description": "jbkty",
+        "sourceTicker": "EDENOR",
+        "parameter1": 3,
+        "condition": 1,
+        "parameter2": 3,
+        "targetTickers": [],
+        "active": false,
+        "userId": 1,
+        "id": 15
+    }
+]

@@ -1,0 +1,22 @@
+{
+  "negotiableInstrumentsAlerts": [
+    {
+      "negotiableInstrumentId": "1",
+      "alertId": 14,
+      "userId": 1,
+      "id": 6
+    },
+    {
+      "negotiableInstrumentId": "2",
+      "alertId": 13,
+      "userId": 1,
+      "id": 7
+    },
+    {
+      "negotiableInstrumentId": "1",
+      "alertId": 13,
+      "userId": 1,
+      "id": 8
+    }
+  ]
+}
