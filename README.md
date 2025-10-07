@@ -1,4 +1,3 @@
-
 <div align="center">
     <img src="https://avatars.githubusercontent.com/u/235483245?u=f1859a88b3e3c9d1b5a5857079c364d3746a1ad9" width="200"/>
     <h1>
@@ -20,6 +19,7 @@
 ![D3.js](https://img.shields.io/badge/D3.js-4.11.0-F9A03C?logo=d3.js&logoColor=white)
 ![React-Financial-Charts](https://img.shields.io/badge/Financial%20Charts-2.0.2-0A66C2?logo=chart.js&logoColor=white)
 ![License](https://img.shields.io/badge/License-MIT-green)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FTraderCharts%2Ftrader-charts-frontend.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2FTraderCharts%2Ftrader-charts-frontend?ref=badge_shield)
 
 
 
@@ -214,3 +214,7 @@ Thanks goes to these wonderful people:
     </tr>
   </tbody>
 </table>
+
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FTraderCharts%2Ftrader-charts-frontend.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FTraderCharts%2Ftrader-charts-frontend?ref=badge_large)
