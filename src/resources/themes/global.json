@@ -1,0 +1,12 @@
+{
+  "logo": "logo.png",
+  "bigLogo": "logo_vulog-white.png",
+  "alt": "Vulog",
+  "loginSplash": "vulog-vehicle.png",
+  "theme": {
+    "palette": {
+      "primary1Color": "#aaaaa",
+      "aaaa": "aaaaaaaa"
+    }
+  }
+}

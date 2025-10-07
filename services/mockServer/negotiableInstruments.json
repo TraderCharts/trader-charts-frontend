@@ -1,0 +1,14 @@
+{
+    "leaderActions": [
+        {
+            "id": "1",
+            "ticker": "AGRO",
+            "alerts": []
+        },
+        {
+            "id": "2",
+            "ticker": "EDENOR",
+            "alerts": []
+        }
+    ]
+}
