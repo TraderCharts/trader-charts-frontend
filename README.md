@@ -13,15 +13,37 @@
 
 ---
 
-![React](https://img.shields.io/badge/React-18.3.1-61DAFB?logo=react&logoColor=white)
+### Interactive Web Interface
+![React](https://img.shields.io/badge/React-18.3.1-4B32C3?logo=react&logoColor=white)
 ![MUI](https://img.shields.io/badge/MUI-6.5.0-007FFF?logo=mui&logoColor=white)
-![Redux](https://img.shields.io/badge/Redux-4.1.2-764ABC?logo=redux&logoColor=white)
+![Redux](https://img.shields.io/badge/Redux-4.1.2-E3FF00?logo=redux&logoColor=white)
 ![D3.js](https://img.shields.io/badge/D3.js-4.11.0-F9A03C?logo=d3.js&logoColor=white)
-![React-Financial-Charts](https://img.shields.io/badge/Financial%20Charts-2.0.2-0A66C2?logo=chart.js&logoColor=white)
-![License](https://img.shields.io/badge/License-MIT-green)
+![React-Financial-Charts](https://img.shields.io/badge/React%20Financial%20Charts-2.0.2-0A66C2?logo=chart.js&logoColor=white)
+![License](https://img.shields.io/badge/License-MIT-C0C0C0)
+
+### React Financial Charts - Exclusive version
+![React](https://img.shields.io/badge/React-16%7C17%7C18%7C19-4B32C3?logo=react&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-4.9.5-3178C6?logo=typescript&logoColor=white)
+![D3.js](https://img.shields.io/badge/D3.js-2.9.1-E3FF00?logo=d3.js&logoColor=white)
+![Storybook](https://img.shields.io/badge/Storybook-6.1.20-5B8CD6?logo=storybook&logoColor=white)
+![ESLint](https://img.shields.io/badge/ESLint-8.40.0-61DAFB?logo=eslint&logoColor=white)
+![Prettier](https://img.shields.io/badge/Prettier-2.8.8-FDE2C6?logo=prettier&logoColor=white)
+![License](https://img.shields.io/badge/License-MIT-C0C0C0)
+
+### License and Security Monitoring
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FTraderCharts%2Ftrader-charts-frontend.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2FTraderCharts%2Ftrader-charts-frontend?ref=badge_shield)
+[![FOSSA Status](
+https://app.fossa.com/api/projects/git%2Bgithub.com%2FTraderCharts%2Ftrader-charts-frontend.svg?type=shield&issueType=security)](
+https://app.fossa.com/api/projects/git%2Bgithub.com%2FTraderCharts%2Ftrader-charts-frontend.svg?type=shield&issueType=security)
 
+---
 
+## Trader Charts Frontend - Overview
+The **Frontend** is the user-facing application built with React, MUI, Redux, and D3.js.  
+It provides interactive charts and dashboards for visualizing data collected and processed by the backend and data collector.  
+[See backend →](https://github.com/TraderCharts/trader-charts-backend) | [See data collector →](https://github.com/TraderCharts/trader-charts-data-collector)
+
+---
 
 
 🚀 **Want to contribute?**
@@ -30,7 +52,7 @@ We welcome collaborators who wish to contribute and help enhance this trading to
 
 ---
 
-## Trader Charts Webapp Project
+## Trader Charts Frontend
 
 There's 3 environments: mock, develop and production
 
@@ -207,13 +229,15 @@ retrieves mock data. Please run the following commands:
 
 Thanks goes to these wonderful people:
 
-<table>
-  <tbody>
-    <tr>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/sgonzaloc"><img src="https://avatars.githubusercontent.com/u/6353386?v=4?s=100" width="100px;" alt="gonzalo"/><br /><sub><b>Gonzalo Sanchez Cano</b></sub></a></td>
-    </tr>
-  </tbody>
-</table>
+<div align="center">
+  <table>
+    <tbody>
+      <tr>
+        <td align="center" valign="top" width="14.28%"><a href="https://github.com/sgonzaloc"><img src="https://avatars.githubusercontent.com/u/6353386?v=4?s=100" width="100px;" alt="gonzalo"/><br /><sub><b>Gonzalo Sanchez Cano</b></sub></a></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
 
 ## License
