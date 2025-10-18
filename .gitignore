@@ -17,3 +17,11 @@
 # Work with npm/yarn locally for monorepo projects
 /.yalc
 yalc.lock
+
+# FOSSA
+.fossa/
+.fossa.yml.example
+fossa-deps.yml.example
+fossa-report.*
+fossa.telemetry.json
+fossa.debug.json.gz
