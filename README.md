@@ -31,6 +31,8 @@
 ![Prettier](https://img.shields.io/badge/Prettier-2.8.8-FDE2C6?logo=prettier&logoColor=white)
 ![License](https://img.shields.io/badge/License-MIT-C0C0C0)
 
+
+
 ---
 
 ## Trader Charts Frontend - Overview
