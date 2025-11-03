@@ -1,0 +1,41 @@
+# Node dependencies
+/node_modules
+
+# Production / build outputs
+/build
+
+# Coverage reports
+/coverage
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Temporary / misc
+.DS_Store
+*.tmp
+*.swp
+*.swo
+
+# IDEs / editor configs
+/.idea
+*.code-workspace
+
+# Local monorepo tool
+/.yalc
+yalc.lock
+
+# FOSSA
+.fossa/
+.fossa.yml.example
+fossa-deps.yml.example
+fossa-report.*
+fossa.telemetry.json
+fossa.debug.json.gz
+
+# Environment variables
+.env.local
+.env.*.local
+.env.production
+.env.staging
