@@ -8,15 +8,15 @@ import PropTypes from "prop-types";
 import React from "react";
 
 const EnhancedTableHead = ({
-                               order,
-                               orderBy,
-                               rowsMetadata,
-                               onRequestSort,
-                               numSelected,
-                               rowCount,
-                               onSelectAllClick
-                           }) => {
-    const handleRequestSort = orderBy => event => {
+    order,
+    orderBy,
+    rowsMetadata,
+    onRequestSort,
+    numSelected,
+    rowCount,
+    onSelectAllClick,
+}) => {
+    const handleRequestSort = (orderBy) => (event) => {
         onRequestSort(event, orderBy);
     };
 
@@ -30,7 +30,7 @@ const EnhancedTableHead = ({
                         onChange={onSelectAllClick}
                     />
                 </TableCell>
-                {rowsMetadata.map(row => {
+                {rowsMetadata.map((row) => {
                     return (
                         <TableCell
                             key={row.id}
@@ -66,7 +66,7 @@ EnhancedTableHead.propTypes = {
     onRequestSort: PropTypes.func.isRequired,
     numSelected: PropTypes.number.isRequired,
     rowCount: PropTypes.number.isRequired,
-    onSelectAllClick: PropTypes.func.isRequired
+    onSelectAllClick: PropTypes.func.isRequired,
 };
 
 export default EnhancedTableHead;

@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import ReactDOM from "react-dom";
 
 function isDefined(d) {
@@ -10,7 +10,7 @@ function getDisplayName(Series) {
 }
 
 export default function fitDimensions(WrappedComponent, props = {}) {
-    const {minWidth = 100, minHeight = 100, ratio, width, height} = props;
+    const { minWidth = 100, minHeight = 100, ratio, width, height } = props;
 
     function getDimensions(el) {
         const w = el.parentNode.clientWidth;
@@ -18,7 +18,7 @@ export default function fitDimensions(WrappedComponent, props = {}) {
 
         return {
             width: isDefined(width) ? width : Math.max(w, minWidth),
-            height: isDefined(height) ? height : Math.max(h, minHeight)
+            height: isDefined(height) ? height : Math.max(h, minHeight),
         };
     }
 
@@ -54,7 +54,6 @@ export default function fitDimensions(WrappedComponent, props = {}) {
                     1;
 
                 const ratio = devicePixelRatio / backingStoreRatio;
-                // console.log("ratio = ", ratio);
                 return ratio;
             }
             return 1;
@@ -67,7 +66,7 @@ export default function fitDimensions(WrappedComponent, props = {}) {
             /* eslint-disable react/no-did-mount-set-state */
             this.setState({
                 ...dimensions,
-                ratio: isDefined(ratio) ? ratio : this.getRatio()
+                ratio: isDefined(ratio) ? ratio : this.getRatio(),
             });
             /* eslint-enable react/no-did-mount-set-state */
         }
@@ -86,7 +85,7 @@ export default function fitDimensions(WrappedComponent, props = {}) {
         }
 
         render() {
-            const ref = {ref: this.saveNode};
+            const ref = { ref: this.saveNode };
 
             if (this.state.width) {
                 return (
@@ -101,16 +100,14 @@ export default function fitDimensions(WrappedComponent, props = {}) {
             } else {
                 return (
                     <div {...ref}>
-                        <canvas ref={this.setTestCanvas}/>
+                        <canvas ref={this.setTestCanvas} />
                     </div>
                 );
             }
         }
     }
 
-    ResponsiveComponent.displayName = `fitDimensions(${getDisplayName(
-        WrappedComponent
-    )})`;
+    ResponsiveComponent.displayName = `fitDimensions(${getDisplayName(WrappedComponent)})`;
 
     return ResponsiveComponent;
 }

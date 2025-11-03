@@ -1,8 +1,8 @@
-import {combineReducers} from "redux";
+import { combineReducers } from "redux";
 
 import authentication from "./authentication.reducer";
-import containers from "./containers.reducer";
 import byma from "./byma.reducer";
+import containers from "./containers.reducer";
 import indicators from "./indicators.reducer";
 
 const rootReducer = combineReducers({

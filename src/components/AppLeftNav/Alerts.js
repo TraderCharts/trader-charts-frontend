@@ -1,9 +1,10 @@
-import React from "react";
-import {useNavigate, useLocation} from "react-router-dom";
-import {ListItem, ListItemIcon} from "@mui/material";
 import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
-import {styled} from "@mui/material/styles";
-import ListItemButton from '@mui/material/ListItemButton';
+import { ListItemIcon } from "@mui/material";
+import ListItemButton from "@mui/material/ListItemButton";
+import Tooltip from "@mui/material/Tooltip";
+import { styled } from "@mui/material/styles";
+import React from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const StyledListItem = styled(ListItemButton)({
     justifyContent: "center",
@@ -16,22 +17,24 @@ const StyledListItemIcon = styled(ListItemIcon)({
     minWidth: "unset",
 });
 
-const Alerts = ({selected, onClick}) => {
+const Alerts = ({ selected, onClick }) => {
     const navigate = useNavigate();
     const location = useLocation();
 
     return (
-        <StyledListItem
-            onClick={() => {
-                onClick();
-                navigate("/alerts", {state: {referer: location}});
-            }}
-            selected={selected}
-        >
-            <StyledListItemIcon>
-                <NotificationsActiveIcon/>
-            </StyledListItemIcon>
-        </StyledListItem>
+        <Tooltip key={"Alerts"} title={"Alerts"} arrow placement="right">
+            <StyledListItem
+                onClick={() => {
+                    onClick();
+                    navigate("/alerts", { state: { referer: location } });
+                }}
+                selected={selected}
+            >
+                <StyledListItemIcon>
+                    <NotificationsActiveIcon />
+                </StyledListItemIcon>
+            </StyledListItem>
+        </Tooltip>
     );
 };
 

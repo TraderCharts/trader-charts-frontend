@@ -1,27 +1,24 @@
-import React, {useEffect} from "react";
-import {createTheme, ThemeProvider} from "@mui/material/styles";
-import {Provider as ConnectProvider, useDispatch} from "react-redux";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 import deepmerge from "deepmerge";
-import rootSagas from "../redux/sagas/index";
-import {
-    clearAuthSagaRequest,
-    clearUserSagaRequest
-} from "../redux/sagas/actions/authentication.action";
-import MainRoutes from "../components/Routes/MainRoutes";
+import { useEffect } from "react";
+import { Provider as ConnectProvider, useDispatch } from "react-redux";
 
-import {configureStore} from "./store";
-import {
-    checkTokenExpirationMiddleware,
-    sagaMiddleware,
-    thunkMiddleware
-} from "./middlewares";
-import {updateExpiresAt} from "./localStorage";
-import BymaClient from "../redux/clients/BymaClient";
+import MainRoutes from "../components/Routes/MainRoutes";
 import AlertsClient from "../redux/clients/AlertsClient";
 import AuthenticationClient from "../redux/clients/AuthenticationClient";
+import BymaClient from "../redux/clients/BymaClient";
 import IndicatorsClient from "../redux/clients/IndicatorsClient";
+import TrendingNewsClient from "../redux/clients/TrendingNewsClient";
+import {
+    clearAuthSagaRequest,
+    clearUserSagaRequest,
+} from "../redux/sagas/actions/authentication.action";
+import rootSagas from "../redux/sagas/index";
+import { updateExpiresAt } from "./localStorage";
+import { checkTokenExpirationMiddleware, sagaMiddleware, thunkMiddleware } from "./middlewares";
+import { configureStore } from "./store";
 
-const clientName = process.env.REACT_APP_CLIENT_NAME;
+const clientName = process.env.REACT_APP_CLIENT_NAME_THEME;
 const clientThemeData = require(`../resources/themes/${clientName}.json`);
 const globalThemeData = require("../resources/themes/global.json");
 
@@ -33,25 +30,22 @@ const bymaClient = new BymaClient(apiConf);
 const authenticationClient = new AuthenticationClient(apiConf);
 const indicatorsClient = new IndicatorsClient(apiConf);
 const alertsClient = new AlertsClient(apiConf);
+const trendingNewsClient = new TrendingNewsClient(apiConf);
 
 const apiClients = {
     apiConf,
     authenticationClient,
     bymaClient,
     indicatorsClient,
-    alertsClient
+    alertsClient,
+    trendingNewsClient,
 };
 
-const middlewares = [
-    checkTokenExpirationMiddleware,
-    thunkMiddleware(apiClients),
-    sagaMiddleware
-];
+const middlewares = [checkTokenExpirationMiddleware, thunkMiddleware(apiClients), sagaMiddleware];
 
 const store = configureStore(apiConf, middlewares);
-sagaMiddleware.run(rootSagas, {apiClients});
+sagaMiddleware.run(rootSagas, { apiClients });
 
-// 🔹 Hook que reemplaza history.listen para expirar sesión
 const TokenExpirationHandler = () => {
     const dispatch = useDispatch();
 
@@ -67,21 +61,21 @@ const TokenExpirationHandler = () => {
                 updateExpiresAt();
             };
 
-            checkExpiration(); // primera verificación inmediata
-            const intervalId = setInterval(checkExpiration, 60 * 1000); // revisa cada minuto
+            checkExpiration();
+            const intervalId = setInterval(checkExpiration, 60 * 1000);
 
-            return () => clearInterval(intervalId); // limpiar al desmontar
+            return () => clearInterval(intervalId);
         }
     }, [dispatch]);
 
-    return null; // no renderiza nada
+    return null;
 };
 
 const Application = () => (
     <ThemeProvider theme={muiTheme}>
         <ConnectProvider store={store}>
-            <TokenExpirationHandler/>
-            <MainRoutes/>
+            <TokenExpirationHandler />
+            <MainRoutes />
         </ConnectProvider>
     </ThemeProvider>
 );

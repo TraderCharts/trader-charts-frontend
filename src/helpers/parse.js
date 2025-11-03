@@ -3,8 +3,7 @@ import moment from "moment-timezone";
 export const null2String = (value, defaultValue = "") => value || defaultValue;
 export const nullJSON2String = (value, attribute, defaultValue = "") =>
     (value && value[attribute]) || defaultValue;
-export const null2Num = (value, defaultValue = undefined) =>
-    value || defaultValue;
+export const null2Num = (value, defaultValue = undefined) => value || defaultValue;
 
 export const undefined2Num = (value, defaultValue = 0) => value || defaultValue;
 export const null2Date = (
@@ -23,7 +22,7 @@ export const null2DateTime = (value, defaultValue = undefined) => {
     return date;
 };
 export const null2Array = (value, defaultValue = []) => value || defaultValue;
-export const stringToBoolean = value => {
+export const stringToBoolean = (value) => {
     if (typeof value !== "string") {
         return false;
     }
@@ -33,8 +32,7 @@ export const stringToBoolean = value => {
 export const hexToRGBA = (inputHex, opacity) => {
     const hex = inputHex.replace("#", "");
     if (inputHex.indexOf("#") > -1 && (hex.length === 3 || hex.length === 6)) {
-
-        const multiplier = (hex.length === 3) ? 1 : 2;
+        const multiplier = hex.length === 3 ? 1 : 2;
 
         const r = parseInt(hex.substring(0, 1 * multiplier), 16);
         const g = parseInt(hex.substring(1 * multiplier, 2 * multiplier), 16);
@@ -45,4 +43,4 @@ export const hexToRGBA = (inputHex, opacity) => {
         return result;
     }
     return inputHex;
-}
+};

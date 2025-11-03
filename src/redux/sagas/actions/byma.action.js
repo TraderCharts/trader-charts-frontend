@@ -10,10 +10,9 @@ export const UNASSIGN_LEADER_ACTION_ALERT_SAGA_REQUEST =
     "@saga/UNASSIGN_LEADER_ACTION_ALERT_SAGA_REQUEST";
 export const FETCH_LEADER_ACTIONS_ALERTS_SAGA_REQUEST =
     "@saga/FETCH_LEADER_ACTIONS_ALERTS_SAGA_REQUEST";
-export const CALCULATE_ALERTS_SAGA_REQUEST =
-    "@saga/CALCULATE_ALERTS_SAGA_REQUEST";
-export const CALCULATE_ALERT_SAGA_REQUEST =
-    "@saga/CALCULATE_ALERT_SAGA_REQUEST";
+export const CALCULATE_ALERTS_SAGA_REQUEST = "@saga/CALCULATE_ALERTS_SAGA_REQUEST";
+export const CALCULATE_ALERT_SAGA_REQUEST = "@saga/CALCULATE_ALERT_SAGA_REQUEST";
+export const FETCH_TRENDING_NEWS_SAGA_REQUEST = "@saga/FETCH_TRENDING_NEWS_SAGA_REQUEST";
 
 //Alerts
 // export const addAlertSagaRequest = alert => ({
@@ -26,39 +25,43 @@ export const CALCULATE_ALERT_SAGA_REQUEST =
 //     alert
 // });
 
-export const saveAlertSagaRequest = alert => ({
+export const saveAlertSagaRequest = (alert) => ({
     type: SAVE_ALERT_SAGA_REQUEST,
-    alert
+    alert,
 });
 
-export const deleteAlertSagaRequest = alert => ({
+export const deleteAlertSagaRequest = (alert) => ({
     type: DELETE_ALERT_SAGA_REQUEST,
-    alert
+    alert,
 });
 
 export const calculateAlertsSagaRequest = () => ({
-    type: CALCULATE_ALERTS_SAGA_REQUEST
+    type: CALCULATE_ALERTS_SAGA_REQUEST,
 });
 
 export const calculateAlertSagaRequest = () => ({
-    type: CALCULATE_ALERT_SAGA_REQUEST
+    type: CALCULATE_ALERT_SAGA_REQUEST,
 });
 
 export const fetchAlertsSagaRequest = () => ({
-    type: FETCH_ALERTS_SAGA_REQUEST
+    type: FETCH_ALERTS_SAGA_REQUEST,
 });
 
 //NegotiableInstrumentsAlerts
-export const assignNegotiableInstrumentAlertSagaRequest = negotiableInstrumentAlert => ({
+export const assignNegotiableInstrumentAlertSagaRequest = (negotiableInstrumentAlert) => ({
     type: ASSIGN_LEADER_ACTION_ALERT_SAGA_REQUEST,
-    negotiableInstrumentAlert
+    negotiableInstrumentAlert,
 });
 
-export const unassignNegotiableInstrumentAlertSagaRequest = negotiableInstrumentAlert => ({
+export const unassignNegotiableInstrumentAlertSagaRequest = (negotiableInstrumentAlert) => ({
     type: UNASSIGN_LEADER_ACTION_ALERT_SAGA_REQUEST,
-    negotiableInstrumentAlert
+    negotiableInstrumentAlert,
 });
 
 export const fetchNegotiableInstrumentsAlertsSagaRequest = () => ({
-    type: FETCH_LEADER_ACTIONS_ALERTS_SAGA_REQUEST
+    type: FETCH_LEADER_ACTIONS_ALERTS_SAGA_REQUEST,
+});
+
+export const fetchTrendingNewsSagaRequest = () => ({
+    type: FETCH_TRENDING_NEWS_SAGA_REQUEST,
 });

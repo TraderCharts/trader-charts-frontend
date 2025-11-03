@@ -1,9 +1,10 @@
-import React from "react";
-import {ListItem, ListItemIcon} from "@mui/material";
 import InsertChartOutlined from "@mui/icons-material/InsertChartOutlined";
-import {useNavigate, useLocation} from "react-router-dom";
-import {styled} from "@mui/material/styles";
-import ListItemButton from '@mui/material/ListItemButton';
+import { ListItemIcon } from "@mui/material";
+import ListItemButton from "@mui/material/ListItemButton";
+import Tooltip from "@mui/material/Tooltip";
+import { styled } from "@mui/material/styles";
+import React from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const StyledListItem = styled(ListItemButton)({
     justifyContent: "center",
@@ -16,22 +17,24 @@ const StyledListItemIcon = styled(ListItemIcon)({
     minWidth: "unset",
 });
 
-const Charts = ({selected, onClick}) => {
+const Charts = ({ selected, onClick }) => {
     const navigate = useNavigate();
     const location = useLocation();
 
     return (
-        <StyledListItem
-            onClick={() => {
-                onClick();
-                navigate("/charts", {state: {referer: location}});
-            }}
-            selected={selected}
-        >
-            <StyledListItemIcon>
-                <InsertChartOutlined/>
-            </StyledListItemIcon>
-        </StyledListItem>
+        <Tooltip key={"Charts"} title={"Advanced charts"} arrow placement="right">
+            <StyledListItem
+                onClick={() => {
+                    onClick();
+                    navigate("/charts", { state: { referer: location } });
+                }}
+                selected={selected}
+            >
+                <StyledListItemIcon>
+                    <InsertChartOutlined />
+                </StyledListItemIcon>
+            </StyledListItem>
+        </Tooltip>
     );
 };
 

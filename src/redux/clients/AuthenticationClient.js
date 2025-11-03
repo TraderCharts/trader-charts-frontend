@@ -1,7 +1,7 @@
 import ApiClient from "./ApiClient";
 
 export default class AuthenticationClient extends ApiClient {
-    registerUser = user => {
+    registerUser = (user) => {
         const promise = this.post(`users/`, user);
         return promise;
     };
@@ -11,7 +11,7 @@ export default class AuthenticationClient extends ApiClient {
         return promise;
     };
 
-    getUserByUniqueUserToken = sub => {
+    getUserByUniqueUserToken = (sub) => {
         const promise = this.get(`users/?sub=${sub}`);
         return promise;
     };

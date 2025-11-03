@@ -1,4 +1,5 @@
-import {timeParse} from "d3-time-format";
+import { timeParse } from "d3-time-format";
+
 import ApiClient from "./ApiClient";
 
 export default class BymaClient extends ApiClient {
@@ -8,12 +9,12 @@ export default class BymaClient extends ApiClient {
         return promise;
     };
 
-    getNegotiableInstrument = ({negotiableInstrumentId}) => {
+    getNegotiableInstrument = ({ negotiableInstrumentId }) => {
         const promise = this.get(`negotiableInstruments/${negotiableInstrumentId}`);
         return promise;
     };
 
-    updateNegotiableInstrument = ({negotiableInstrument}) => {
+    updateNegotiableInstrument = ({ negotiableInstrument }) => {
         const promise = this.patch(
             `negotiableInstruments/${negotiableInstrument.id}`,
             negotiableInstrument
@@ -23,9 +24,9 @@ export default class BymaClient extends ApiClient {
 
     // -------------------------------- BymaStocksData ----------------------------------------
     getBymaStocksData = (tickerCode) => {
-        const promise = this.get(`bymaStocksData?ticker=${tickerCode}`).then(data => {
+        const promise = this.get(`bymaStocksData?ticker=${tickerCode}`).then((data) => {
             const parseDate = timeParse("%Y-%m-%d");
-            data.forEach(d => {
+            data.forEach((d) => {
                 d.date = parseDate(d.date);
             });
             return data;
@@ -39,30 +40,30 @@ export default class BymaClient extends ApiClient {
         return promise;
     };
 
-    getAlert = ({alertId}) => {
+    getAlert = ({ alertId }) => {
         const promise = this.get(`alerts/${alertId}`);
         return promise;
     };
 
-    addAlert = ({userId, alert}) => {
+    addAlert = ({ userId, alert }) => {
         alert = {
             ...alert,
-            userId
+            userId,
         };
         const promise = this.post(`alerts/`, alert);
         return promise;
     };
 
-    updateAlert = ({userId, alert}) => {
+    updateAlert = ({ userId, alert }) => {
         alert = {
             ...alert,
-            userId
+            userId,
         };
         const promise = this.patch(`alerts/${alert.id}`, alert);
         return promise;
     };
 
-    deleteAlert = ({alertId}) => {
+    deleteAlert = ({ alertId }) => {
         const promise = this.delete(`alerts/${alertId}`);
         return promise;
     };

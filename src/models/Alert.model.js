@@ -5,6 +5,6 @@ const Alert = {
     condition: "",
     parameter2: "",
     targetTickers: [],
-    active: false
+    active: false,
 };
 export default Alert;

@@ -1,20 +1,28 @@
-# See https://help.github.com/ignore-files/ for more about ignoring files.
-
-# dependencies
+# Node dependencies
 /node_modules
 
-# testing
-/coverage
-
-# production
+# Production / build outputs
 /build
 
-# misc
+# Coverage reports
+/coverage
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Temporary / misc
 .DS_Store
+*.tmp
+*.swp
+*.swo
 
+# IDEs / editor configs
 /.idea
+*.code-workspace
 
-# Work with npm/yarn locally for monorepo projects
+# Local monorepo tool
 /.yalc
 yalc.lock
 
@@ -25,3 +33,10 @@ fossa-deps.yml.example
 fossa-report.*
 fossa.telemetry.json
 fossa.debug.json.gz
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+.env.production
+.env.staging

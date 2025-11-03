@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 
 // import ReactDOM from "react-dom";
 
@@ -10,11 +10,7 @@ function getDisplayName(Series) {
     return Series.displayName || Series.name || "Series";
 }
 
-export default function fitWidth(
-    WrappedComponent,
-    withRef = true,
-    minWidth = 100
-) {
+export default function fitWidth(WrappedComponent, withRef = true, minWidth = 100) {
     class ResponsiveComponent extends Component {
         constructor(props) {
             super(props);
@@ -47,7 +43,6 @@ export default function fitWidth(
                     1;
 
                 const ratio = devicePixelRatio / backingStoreRatio;
-                // console.log("ratio = ", ratio);
                 return ratio;
             }
             return 1;
@@ -58,7 +53,7 @@ export default function fitWidth(
             this.handleWindowResize();
             /* eslint-disable react/no-did-mount-set-state */
             this.setState({
-                ratio: this.getRatio()
+                ratio: this.getRatio(),
             });
             /* eslint-enable react/no-did-mount-set-state */
         }
@@ -70,20 +65,19 @@ export default function fitWidth(
         handleWindowResize() {
             this.setState(
                 {
-                    width: 0
+                    width: 0,
                 },
                 () => {
                     const el = this.node;
-                    const {width, paddingLeft, paddingRight} = window.getComputedStyle(
+                    const { width, paddingLeft, paddingRight } = window.getComputedStyle(
                         el.parentNode
                     );
 
                     const w =
-                        parseFloat(width) -
-                        (parseFloat(paddingLeft) + parseFloat(paddingRight));
+                        parseFloat(width) - (parseFloat(paddingLeft) + parseFloat(paddingRight));
 
                     this.setState({
-                        width: Math.round(Math.max(w, minWidth))
+                        width: Math.round(Math.max(w, minWidth)),
                     });
                 }
             );
@@ -94,7 +88,7 @@ export default function fitWidth(
         }
 
         render() {
-            const ref = withRef ? {ref: this.saveNode} : {};
+            const ref = withRef ? { ref: this.saveNode } : {};
 
             if (this.state.width) {
                 return (
@@ -108,16 +102,14 @@ export default function fitWidth(
             } else {
                 return (
                     <div {...ref}>
-                        <canvas ref={this.setTestCanvas}/>
+                        <canvas ref={this.setTestCanvas} />
                     </div>
                 );
             }
         }
     }
 
-    ResponsiveComponent.displayName = `fitWidth(${getDisplayName(
-        WrappedComponent
-    )})`;
+    ResponsiveComponent.displayName = `fitWidth(${getDisplayName(WrappedComponent)})`;
 
     return ResponsiveComponent;
 }

@@ -2,13 +2,13 @@ const conditions = [
     {
         id: 1,
         name: "above",
-        operation: ">"
+        operation: ">",
     },
     {
         id: 2,
         name: "under",
-        operation: "<"
-    }
+        operation: "<",
+    },
 ];
 
 export default conditions;

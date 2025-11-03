@@ -1,8 +1,8 @@
-import React from "react";
-import PropTypes from "prop-types";
 import Popover from "@mui/material/Popover";
-import {CirclePicker} from "react-color";
-import {styled} from "@mui/material/styles";
+import { styled } from "@mui/material/styles";
+import PropTypes from "prop-types";
+import React from "react";
+import { CirclePicker } from "react-color";
 
 const StyledPopover = styled(Popover)({
     marginTop: "7px",
@@ -13,11 +13,11 @@ const ColorPickerWrapper = styled("div")({
     padding: "20px",
 });
 
-const ColorPicker = ({show, stroke, onClose, onChangeColor, anchorEl}) => (
+const ColorPicker = ({ show, stroke, onClose, onChangeColor, anchorEl }) => (
     <StyledPopover
         open={show}
         onClose={onClose}
-        BackdropProps={{invisible: true}}
+        BackdropProps={{ invisible: true }}
         anchorEl={anchorEl}
         anchorOrigin={{
             vertical: "bottom",
@@ -25,7 +25,7 @@ const ColorPicker = ({show, stroke, onClose, onChangeColor, anchorEl}) => (
         }}
     >
         <ColorPickerWrapper>
-            <CirclePicker color={stroke} onChangeComplete={onChangeColor}/>
+            <CirclePicker color={stroke} onChangeComplete={onChangeColor} />
         </ColorPickerWrapper>
     </StyledPopover>
 );

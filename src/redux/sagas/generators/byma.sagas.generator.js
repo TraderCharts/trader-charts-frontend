@@ -1,51 +1,52 @@
 /* eslint-disable no-process-env */
-import {all, call, put, select} from "redux-saga/effects";
-import {
-    setAlertsDefinition,
-    setNegotiableInstrumentsAlertsDefinition
-} from "../../actionDefinitions/alerts.actionDefinitions";
-import {
-    assignNegotiableInstrumentAlertSagaRequest,
-    unassignNegotiableInstrumentAlertSagaRequest
-} from "../actions/byma.action";
+import _ from "lodash";
+import { all, call, put, select } from "redux-saga/effects";
+
+import { loadIndicators } from "../../../operations/indicators";
 import {
     selectedAlertSelector,
-    alertConditionOperationsSelector
-} from '../../../selectors/byma.selector';
-import {loadIndicators} from "../../../operations/indicators";
-import _ from "lodash";
-import conditionsOperations from "../../../constants/indicatorConditionOperations";
+    alertConditionOperationsSelector,
+} from "../../../selectors/byma.selector";
+import {
+    setAlertsDefinition,
+    setNegotiableInstrumentsAlertsDefinition,
+} from "../../actionDefinitions/alerts.actionDefinitions";
+import { setTrendingNewsDefinition } from "../../actionDefinitions/byma.actionDefinitions";
+import {
+    assignNegotiableInstrumentAlertSagaRequest,
+    unassignNegotiableInstrumentAlertSagaRequest,
+} from "../actions/byma.action";
 
 // NegotiableInstrumentsAlerts
-function* updateNegotiableInstrumentAlert(apiClients, {userId, alert}) {
+function* updateNegotiableInstrumentAlert(apiClients, { userId, alert }) {
     const selectedAlert = yield select(selectedAlertSelector);
     const selectedAlertTickers = selectedAlert.targetTickers;
     const alertTickers = alert.targetTickers;
     const negotiableInstrumentsToAdd = alertTickers.filter(
-        alertTickerId => !selectedAlertTickers.includes(alertTickerId)
+        (alertTickerId) => !selectedAlertTickers.includes(alertTickerId)
     );
     const negotiableInstrumentsToRemove = selectedAlertTickers.filter(
-        alertTickerId => !alertTickers.includes(alertTickerId)
+        (alertTickerId) => !alertTickers.includes(alertTickerId)
     );
 
     yield all(
-        negotiableInstrumentsToAdd.map(negotiableInstrumentId =>
+        negotiableInstrumentsToAdd.map((negotiableInstrumentId) =>
             put(
                 assignNegotiableInstrumentAlertSagaRequest({
                     targetNegotiableInstrumentId: negotiableInstrumentId,
-                    alertId: alert.id
+                    alertId: alert.id,
                 })
             )
         )
     );
 
     yield all(
-        negotiableInstrumentsToRemove.map(negotiableInstrumentId =>
+        negotiableInstrumentsToRemove.map((negotiableInstrumentId) =>
             put(
                 unassignNegotiableInstrumentAlertSagaRequest({
                     targetNegotiableInstrumentId: negotiableInstrumentId,
                     alertId: alert.id,
-                    userId
+                    userId,
                 })
             )
         )
@@ -56,7 +57,7 @@ export function* fetchNegotiableInstrumentsAlerts(apiClients) {
     const userId = 1;
     const negotiableInstrumentsAlerts = yield call(
         apiClients.alertsClient.getNegotiableInstrumentsAlerts,
-        {userId}
+        { userId }
     );
     yield put(setNegotiableInstrumentsAlertsDefinition(negotiableInstrumentsAlerts));
 }
@@ -65,7 +66,7 @@ export function* assignNegotiableInstrumentAlert(apiClients, negotiableInstrumen
     const userId = 1;
     yield call(apiClients.alertsClient.assignNegotiableInstrumentAlert, {
         userId,
-        negotiableInstrumentAlert
+        negotiableInstrumentAlert,
     });
     yield call(fetchNegotiableInstrumentsAlerts, apiClients);
 }
@@ -76,15 +77,15 @@ export function* unassignNegotiableInstrumentAlert(apiClients, negotiableInstrum
         apiClients.alertsClient.getNegotiableInstrumentAlert,
         {
             userId,
-            negotiableInstrumentAlert
+            negotiableInstrumentAlert,
         }
     );
 
     yield all(
-        negotiableInstrumentsAlerts.map(negotiableInstrumentAlert =>
+        negotiableInstrumentsAlerts.map((negotiableInstrumentAlert) =>
             call(apiClients.alertsClient.unassignNegotiableInstrumentAlert, {
                 userId,
-                negotiableInstrumentAlertId: negotiableInstrumentAlert.id
+                negotiableInstrumentAlertId: negotiableInstrumentAlert.id,
             })
         )
     );
@@ -94,34 +95,29 @@ export function* unassignNegotiableInstrumentAlert(apiClients, negotiableInstrum
 // Alerts
 export function* addAlert(apiClients, alert) {
     const userId = 1;
-    alert = yield call(apiClients.alertsClient.addAlert, {alert, userId});
-    yield call(updateNegotiableInstrumentAlert, apiClients, {alert, userId});
+    alert = yield call(apiClients.alertsClient.addAlert, { alert, userId });
+    yield call(updateNegotiableInstrumentAlert, apiClients, { alert, userId });
 }
 
 export function* updateAlert(apiClients, alert) {
     const userId = 1;
-    yield call(apiClients.alertsClient.updateAlert, {userId, alert});
-    yield call(updateNegotiableInstrumentAlert, apiClients, {userId, alert});
+    yield call(apiClients.alertsClient.updateAlert, { userId, alert });
+    yield call(updateNegotiableInstrumentAlert, apiClients, { userId, alert });
 }
 
 export function* deleteAlert(apiClients, alertId) {
     const userId = 1;
-    yield call(apiClients.alertsClient.deleteAlert, {userId, alertId});
+    yield call(apiClients.alertsClient.deleteAlert, { userId, alertId });
 }
 
 export function* fetchAlerts(apiClients) {
     const userId = 1;
-    const alerts = yield call(apiClients.alertsClient.getAlerts, {userId});
+    const alerts = yield call(apiClients.alertsClient.getAlerts, { userId });
     yield put(setAlertsDefinition(alerts));
 }
 
-export function* calculateAlert(
-    apiClients,
-    alert,
-    bymaStocksData,
-    indicatorsListMetadata
-) {
-    const {dataWithIndicators} = yield call(
+export function* calculateAlert(apiClients, alert, bymaStocksData, indicatorsListMetadata) {
+    const { dataWithIndicators } = yield call(
         loadIndicators,
         bymaStocksData,
         indicatorsListMetadata
@@ -129,16 +125,16 @@ export function* calculateAlert(
     const [lastDateData] = dataWithIndicators.slice(-1);
     const parameter1 = _.find(
         indicatorsListMetadata,
-        indicator => indicator.id === alert.parameter1
+        (indicator) => indicator.id === alert.parameter1
     ).code;
     const parameter2 = _.find(
         indicatorsListMetadata,
-        indicator => indicator.id === alert.parameter2
+        (indicator) => indicator.id === alert.parameter2
     ).code;
     const conditionsOperations = yield select(alertConditionOperationsSelector);
     const conditionOperation = _.find(
         conditionsOperations,
-        conditionsOperation => conditionsOperation.id === alert.condition
+        (conditionsOperation) => conditionsOperation.id === alert.condition
     ).operation;
     let operationResult = false;
     switch (conditionOperation) {
@@ -153,5 +149,18 @@ export function* calculateAlert(
     }
 
     alert.ringing = operationResult;
-    yield call(apiClients.alertsClient.updateAlert, {alert});
+    yield call(apiClients.alertsClient.updateAlert, { alert });
+}
+
+export function* fetchTrendingNews(apiClients) {
+    let trendingNews = yield call(apiClients.trendingNewsClient.getTrendingNews);
+    trendingNews = trendingNews.reduce((acc, item) => {
+        if (!acc[item.source_name]) {
+            acc[item.source_name] = [];
+        }
+        acc[item.source_name].push(item);
+        return acc;
+    }, {});
+
+    yield put(setTrendingNewsDefinition(trendingNews));
 }

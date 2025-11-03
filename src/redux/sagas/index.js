@@ -1,4 +1,5 @@
-import {all, takeEvery, takeLatest} from "redux-saga/effects";
+import { all, takeEvery, takeLatest } from "redux-saga/effects";
+
 import {
     ADD_ALERT_SAGA_REQUEST,
     ASSIGN_LEADER_ACTION_ALERT_SAGA_REQUEST,
@@ -6,12 +7,13 @@ import {
     DELETE_ALERT_SAGA_REQUEST,
     FETCH_ALERTS_SAGA_REQUEST,
     FETCH_LEADER_ACTIONS_ALERTS_SAGA_REQUEST,
+    FETCH_TRENDING_NEWS_SAGA_REQUEST,
     LOGIN_SAGA_REQUEST,
     SAVE_ALERT_SAGA_REQUEST,
     UNASSIGN_LEADER_ACTION_ALERT_SAGA_REQUEST,
-    UPDATE_ALERT_SAGA_REQUEST
+    UPDATE_ALERT_SAGA_REQUEST,
 } from "./actions/byma.action";
-import {loginFlow} from "./flows/authentication.sagas.flow";
+import { loginFlow } from "./flows/authentication.sagas.flow";
 import {
     addAlertFlow,
     assignNegotiableInstrumentAlertFlow,
@@ -21,7 +23,8 @@ import {
     fetchNegotiableInstrumentsAlertsFlow,
     saveAlertFlow,
     unassignNegotiableInstrumentAlertFlow,
-    updateAlertFlow
+    updateAlertFlow,
+    fetchTrendingNewsFlow,
 } from "./flows/byma.sagas.flow";
 
 export default function* RootSagas(context) {
@@ -50,6 +53,7 @@ export default function* RootSagas(context) {
             FETCH_LEADER_ACTIONS_ALERTS_SAGA_REQUEST,
             fetchNegotiableInstrumentsAlertsFlow,
             context
-        )
+        ),
+        takeLatest(FETCH_TRENDING_NEWS_SAGA_REQUEST, fetchTrendingNewsFlow, context),
     ]);
 }

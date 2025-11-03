@@ -15,11 +15,7 @@ export const fuzzySearch = (needle, haystack) => {
         return matchResults;
     }
     matchResults = [];
-    outer: for (
-        let needlePos = 0, haystackPos = 0;
-        needlePos < needleLen;
-        needlePos++
-    ) {
+    outer: for (let needlePos = 0, haystackPos = 0; needlePos < needleLen; needlePos++) {
         const needleChar = needle.charCodeAt(needlePos);
         while (haystackPos < haystackLen) {
             const haystackChar = haystack.charCodeAt(haystackPos);

@@ -1,4 +1,3 @@
-import {timeParse} from "d3-time-format";
 import ApiClient from "./ApiClient";
 
 export default class BymaClient extends ApiClient {
@@ -8,30 +7,30 @@ export default class BymaClient extends ApiClient {
         return promise;
     };
 
-    getAlert = ({alertId}) => {
+    getAlert = ({ alertId }) => {
         const promise = this.get(`alerts/${alertId}`);
         return promise;
     };
 
-    addAlert = ({userId, alert}) => {
+    addAlert = ({ userId, alert }) => {
         alert = {
             ...alert,
-            userId
+            userId,
         };
         const promise = this.post(`alerts/`, alert);
         return promise;
     };
 
-    updateAlert = ({userId, alert}) => {
+    updateAlert = ({ userId, alert }) => {
         alert = {
             ...alert,
-            userId
+            userId,
         };
         const promise = this.patch(`alerts/${alert.id}`, alert);
         return promise;
     };
 
-    deleteAlert = ({alertId}) => {
+    deleteAlert = ({ alertId }) => {
         const promise = this.delete(`alerts/${alertId}`);
         return promise;
     };
@@ -42,7 +41,7 @@ export default class BymaClient extends ApiClient {
         return promise;
     };
 
-    getNegotiableInstrumentAlert = ({negotiableInstrumentAlert}) => {
+    getNegotiableInstrumentAlert = ({ negotiableInstrumentAlert }) => {
         let searchFields = negotiableInstrumentAlert.negotiableInstrumentId
             ? `&negotiableInstrumentId=${negotiableInstrumentAlert.negotiableInstrumentId}`
             : "";
@@ -53,16 +52,16 @@ export default class BymaClient extends ApiClient {
         return promise;
     };
 
-    assignNegotiableInstrumentAlert = ({userId, negotiableInstrumentAlert}) => {
+    assignNegotiableInstrumentAlert = ({ userId, negotiableInstrumentAlert }) => {
         negotiableInstrumentAlert = {
             ...negotiableInstrumentAlert,
-            userId
+            userId,
         };
         const promise = this.post(`negotiableInstrumentsAlerts/`, negotiableInstrumentAlert);
         return promise;
     };
 
-    unassignNegotiableInstrumentAlert = ({negotiableInstrumentAlertId}) => {
+    unassignNegotiableInstrumentAlert = ({ negotiableInstrumentAlertId }) => {
         const promise = this.delete(`negotiableInstrumentsAlerts/${negotiableInstrumentAlertId}`);
         return promise;
     };

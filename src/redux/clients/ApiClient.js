@@ -1,5 +1,6 @@
 import axios from "axios";
-import {logError} from "./ErrorHandler";
+
+import { logError } from "./ErrorHandler";
 
 export default class ApiClient {
     constructor(apiConf) {
@@ -45,10 +46,10 @@ export default class ApiClient {
     _callAPIRequest(requestConfig, resolve, reject) {
         this.instance
             .request(requestConfig)
-            .then(response => {
+            .then((response) => {
                 resolve(response.data);
             })
-            .catch(error => {
+            .catch((error) => {
                 logError(error);
                 reject(error);
             });
@@ -58,18 +59,18 @@ export default class ApiClient {
         let urlDomain;
         switch (process.env.REACT_APP_ENV) {
             case "develop":
-                urlDomain = process.env.REACT_APP_BYMA_MOCKED_DOMAIN;
+                urlDomain = process.env.REACT_APP_BACKEND_API_MOCK;
                 break;
             case "production":
-                urlDomain = process.env.REACT_APP_BYMA_HEROKU_DOMAIN;
+                urlDomain = process.env.REACT_APP_PUBLIC_BACKEND_API;
                 break;
             default:
-                urlDomain = process.env.REACT_APP_BYMA_MOCKED_DOMAIN;
+                urlDomain = process.env.REACT_APP_BACKEND_API_MOCK;
                 break;
         }
         const auth = JSON.parse(localStorage.getItem("auth"));
-        let headers = {
-            "Content-Type": "application/json"
+        const headers = {
+            "Content-Type": "application/json",
         };
         if (auth) {
             headers.Authorization = `Bearer ${auth.accessToken}`;
@@ -77,7 +78,7 @@ export default class ApiClient {
         const requestConfig = {
             url: urlDomain + apiUrl,
             method: requestMethod,
-            headers
+            headers,
         };
 
         if (payload) {

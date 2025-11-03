@@ -1,33 +1,34 @@
-import React, {useState} from "react";
-import {connect} from "react-redux";
+import React, { useState } from "react";
+import { connect } from "react-redux";
 import "rc-slider/assets/index.css";
 import "rc-tooltip/assets/bootstrap.css";
 import Slider from "rc-slider";
 import IconButton from "@mui/material/IconButton";
-import {changeShowColorPicker} from "../../../redux/actions/containers.action";
-import ColorPicker from "../../../components/ColorPicker/index";
-import {changeSelectedIndicatorMetadata} from "../../../redux/actionDefinitions/indicators.actionDefinitions";
 
-const mapStateToProps = state => ({
+import ColorPicker from "../../../components/ColorPicker/index";
+import { changeSelectedIndicatorMetadata } from "../../../redux/actionDefinitions/indicators.actionDefinitions";
+import { changeShowColorPicker } from "../../../redux/actions/containers.action";
+
+const mapStateToProps = (state) => ({
     selectedIndicatorMetadata: state.indicators.selectedIndicatorMetadata,
-    showColorPicker: state.containers.showColorPicker
+    showColorPicker: state.containers.showColorPicker,
 });
 
-const mapActionsToProps = dispatch => ({
-    onChangeShowColorPicker: value => dispatch(changeShowColorPicker(value)),
-    onChangeSelectedIndicatorMetadata: indicatorMetadata =>
-        dispatch(changeSelectedIndicatorMetadata(indicatorMetadata))
+const mapActionsToProps = (dispatch) => ({
+    onChangeShowColorPicker: (value) => dispatch(changeShowColorPicker(value)),
+    onChangeSelectedIndicatorMetadata: (indicatorMetadata) =>
+        dispatch(changeSelectedIndicatorMetadata(indicatorMetadata)),
 });
 
 const StylesTab = ({
-                       selectedIndicatorMetadata,
-                       onChangeSelectedIndicatorMetadata,
-                       showColorPicker = false,
-                       onChangeShowColorPicker
-                   }) => {
+    selectedIndicatorMetadata,
+    onChangeSelectedIndicatorMetadata,
+    showColorPicker = false,
+    onChangeShowColorPicker,
+}) => {
     const [colorPickerAnchor, setColorPickerAnchor] = useState(null);
 
-    const openColorPicker = event => {
+    const openColorPicker = (event) => {
         onChangeShowColorPicker(true);
         setColorPickerAnchor(event.target);
     };
@@ -36,8 +37,8 @@ const StylesTab = ({
         onChangeShowColorPicker(false);
     };
 
-    const onChangeColor = color => {
-        onChangeSelectedIndicatorMetadata({stroke: color.hex});
+    const onChangeColor = (color) => {
+        onChangeSelectedIndicatorMetadata({ stroke: color.hex });
         onChangeShowColorPicker(false);
     };
 
@@ -49,8 +50,8 @@ const StylesTab = ({
                     min={1}
                     max={3}
                     defaultValue={selectedIndicatorMetadata.strokeWidth}
-                    onChange={value => {
-                        onChangeSelectedIndicatorMetadata({strokeWidth: Number(value)});
+                    onChange={(value) => {
+                        onChangeSelectedIndicatorMetadata({ strokeWidth: Number(value) });
                     }}
                 />
             </div>
@@ -58,23 +59,23 @@ const StylesTab = ({
                 <div
                     style={{
                         width: "16px",
-                        height: "16px"
+                        height: "16px",
                     }}
                 >
-          <span>
-            <div
-                style={{
-                    backgroundColor: selectedIndicatorMetadata.stroke,
-                    height: "100%",
-                    width: "100%",
-                    cursor: "pointer",
-                    position: "relative",
-                    outline: "none",
-                    borderRadius: "3px",
-                    boxShadow: "rgba(0, 0, 0, 0.15) 0px 0px 0px 1px inset"
-                }}
-            />
-          </span>
+                    <span>
+                        <div
+                            style={{
+                                backgroundColor: selectedIndicatorMetadata.stroke,
+                                height: "100%",
+                                width: "100%",
+                                cursor: "pointer",
+                                position: "relative",
+                                outline: "none",
+                                borderRadius: "3px",
+                                boxShadow: "rgba(0, 0, 0, 0.15) 0px 0px 0px 1px inset",
+                            }}
+                        />
+                    </span>
                 </div>
             </IconButton>
             <ColorPicker
@@ -88,9 +89,5 @@ const StylesTab = ({
     );
 };
 
-const enhance = pure =>
-    connect(
-        mapStateToProps,
-        mapActionsToProps
-    )(pure);
+const enhance = (pure) => connect(mapStateToProps, mapActionsToProps)(pure);
 export default enhance(StylesTab);

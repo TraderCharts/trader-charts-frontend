@@ -24,7 +24,6 @@ export function saveInteractiveNodes(type, chartId) {
         const key = `${type}_${chartId}`;
         if (isDefined(node) || isDefined(this.interactiveNodes[key])) {
             // console.error(node, key)
-            // console.log(this.interactiveNodes)
             this.interactiveNodes = {
                 ...this.interactiveNodes,
                 [key]: {type, chartId, node},
@@ -37,9 +36,9 @@ export function getInteractiveNodes() {
     return this.interactiveNodes;
 }
 */
-import {isDefined, isNotDefined, mapObject} from "@react-financial-charts/core";
+import { isDefined, isNotDefined, mapObject } from "@react-financial-charts/core";
 
-export function getValueFromOverride(override: any, index: any, key: any, defaultValue: any) {
+export function getValueFromOverride(override, index, key, defaultValue) {
     if (isDefined(override) && override.index === index) {
         return override[key];
     }
@@ -55,7 +54,6 @@ export function terminate() {
 }
 
 export function saveNodeType(type) {
-    console.log('saveNodeType1', this)
     return (node) => {
         // @ts-ignore
         if (isDefined(this.nodes)) {
@@ -71,16 +69,15 @@ export function saveNodeType(type) {
             // @ts-ignore
             this.nodes = [];
         }
-        console.log('saveNodeType2', this.nodes)
     };
 }
 
 export function getNodeTypes() {
-    return this.nodes
+    return this.nodes;
 }
 
-export function isHoverForInteractiveType(interactiveType: any) {
-    return function (moreProps: any) {
+export function isHoverForInteractiveType(interactiveType) {
+    return function (moreProps) {
         // this has to be function as it is bound to this
 
         // @ts-ignore
@@ -99,7 +96,7 @@ export function isHoverForInteractiveType(interactiveType: any) {
     };
 }
 
-export function isHover(moreProps: any) {
+export function isHover(moreProps) {
     // @ts-ignore
     const hovering = mapObject(this.nodes, (node) => node.isHover(moreProps)).reduce((a, b) => {
         return a || b;
@@ -107,7 +104,7 @@ export function isHover(moreProps: any) {
     return hovering;
 }
 
-function getMouseXY(moreProps: any, [ox, oy]: any) {
+function getMouseXY(moreProps, [ox, oy]) {
     if (Array.isArray(moreProps.mouseXY)) {
         const {
             mouseXY: [x, y],
@@ -118,11 +115,11 @@ function getMouseXY(moreProps: any, [ox, oy]: any) {
     return moreProps.mouseXY;
 }
 
-export function getMorePropsForChart(moreProps: any, chartId: any) {
-    const {chartConfig: chartConfigList} = moreProps;
-    const chartConfig = chartConfigList.find((each: any) => each.id === chartId);
+export function getMorePropsForChart(moreProps, chartId) {
+    const { chartConfig: chartConfigList } = moreProps;
+    const chartConfig = chartConfigList.find((each) => each.id === chartId);
 
-    const {origin} = chartConfig;
+    const { origin } = chartConfig;
     const mouseXY = getMouseXY(moreProps, origin);
     return {
         ...moreProps,
@@ -131,10 +128,10 @@ export function getMorePropsForChart(moreProps: any, chartId: any) {
     };
 }
 
-export function getSelected(interactives: any) {
+export function getSelected(interactives) {
     const selected = interactives
-        .map((each: any) => {
-            const objects = each.objects.filter((obj: any) => {
+        .map((each) => {
+            const objects = each.objects.filter((obj) => {
                 return obj.selected;
             });
             return {
@@ -142,6 +139,6 @@ export function getSelected(interactives: any) {
                 objects,
             };
         })
-        .filter((each: any) => each.objects.length > 0);
+        .filter((each) => each.objects.length > 0);
     return selected;
 }
