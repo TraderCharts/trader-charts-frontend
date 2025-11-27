@@ -58,14 +58,11 @@ export default class ApiClient {
     _getRequestConfig(requestMethod, apiUrl, payload) {
         let urlDomain;
         switch (process.env.REACT_APP_ENV) {
-            case "develop":
-                urlDomain = process.env.REACT_APP_BACKEND_API_MOCK;
-                break;
             case "production":
                 urlDomain = process.env.REACT_APP_PUBLIC_BACKEND_API;
                 break;
             default:
-                urlDomain = process.env.REACT_APP_BACKEND_API_MOCK;
+                urlDomain = process.env.REACT_APP_BACKEND_API;
                 break;
         }
         const auth = JSON.parse(localStorage.getItem("auth"));

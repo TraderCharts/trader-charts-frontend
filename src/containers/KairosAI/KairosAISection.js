@@ -5,7 +5,7 @@ const KairosAISection = () => {
         <>
             <Box
                 component="iframe"
-                src="http://localhost:5173/"
+                src={process.env.REACT_APP_CHAT_UI_URL || ""}
                 sx={{ width: "100%", height: "100%", border: "none" }}
                 title="Chat Hugging Face"
             />

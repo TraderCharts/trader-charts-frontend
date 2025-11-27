@@ -63,7 +63,7 @@
         "prestart": "node scripts/prestart.js",
         "start": "npm run prestart && REACT_APP_ENV='production' react-scripts start",
         "start-develop": "cross-env PORT=3001 REACT_APP_ENV='development' react-scripts start",
-        "start-mock": "export NODE_OPTIONS=--openssl-legacy-provider && cross-env PORT=3001 REACT_APP_ENV='mock' react-scripts start",
+        "start-mock": "export NODE_OPTIONS=--openssl-legacy-provider && cross-env PORT=3001 REACT_APP_ENV='development' react-scripts start",
         "mock-api": "nodemon ./services/mockServer/server.js -e ./services/mockServer/db.json",
         "build": "react-scripts build",
         "test": "react-scripts test --env=jsdom",

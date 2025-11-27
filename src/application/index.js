@@ -18,7 +18,7 @@ import { updateExpiresAt } from "./localStorage";
 import { checkTokenExpirationMiddleware, sagaMiddleware, thunkMiddleware } from "./middlewares";
 import { configureStore } from "./store";
 
-const clientName = process.env.REACT_APP_CLIENT_NAME_THEME;
+const clientName = process.env.REACT_APP_CLIENT_NAME;
 const clientThemeData = require(`../resources/themes/${clientName}.json`);
 const globalThemeData = require("../resources/themes/global.json");
 

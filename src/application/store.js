@@ -4,7 +4,7 @@ import reducers from "../redux/reducers/index";
 
 const getEnhancers = (middlewares) => {
     let enhancers = {};
-    if (process.env.REACT_APP_ENV === "development") {
+    if (process.env.REACT_APP_ENV !== "production") {
         const composeEnhancers =
             typeof window === "object" && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
                 ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({ name: "ChartsRedux" })

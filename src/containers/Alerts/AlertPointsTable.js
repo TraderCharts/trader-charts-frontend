@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 
-import EnhancedTable from "../../containers/Table/EnhancedTable";
+import EnhancedTable from "../Table/EnhancedTable";
 import { alertPointsSelector } from "../../selectors/byma.selector";
 
 const rowsMetadata = [

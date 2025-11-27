@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
 import { bindActionCreators } from "redux";
 
-import EnhancedTable from "../../containers/Table/EnhancedTable";
+import EnhancedTable from "../Table/EnhancedTable";
 import { showPageEditAlerts } from "../../redux/actions/byma.action";
 import {
     calculateAlertsSagaRequest,

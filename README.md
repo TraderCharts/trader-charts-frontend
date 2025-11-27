@@ -218,7 +218,7 @@ use the server that retrieves mock data. Please run the following commands:
 
 ### Trading Charts demo
 
-- [Demo Video](https://drive.google.com/file/d/1P6rXxtZItBR0-MQnIe-N1WODwIFOgjrf/view?usp=drive_link)
+- [Demo Video](https://drive.google.com/file/d/12vBuQgQfU6vP4CiAQe6WRfc9711vaEyW/view?usp=sharing)
 
 <div>
    <video width="320" height="240" controls autoplay>
