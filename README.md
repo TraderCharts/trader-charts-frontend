@@ -35,15 +35,27 @@
 ![Prettier](https://img.shields.io/badge/Prettier-2.8.8-FDE2C6?logo=prettier&logoColor=white)
 ![License](https://img.shields.io/badge/License-MIT-C0C0C0)
 
+### Kairos AI
+
+![TypeScript](https://img.shields.io/badge/TypeScript-5.5.0-0A66C2?logo=typescript&logoColor=white)
+![TailwindCSS](https://img.shields.io/badge/TailwindCSS-3.4.0-2874A6?logo=tailwindcss&logoColor=white)
+![Svelte](https://img.shields.io/badge/Svelte-5.33.3-4B32C3?logo=svelte&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-6.3.5-F9A03C?logo=vite&logoColor=white)
+![OpenAI](https://img.shields.io/badge/OpenAI-4.44.0-0A66C2?logo=openai&logoColor=white)
+![HuggingFace](https://img.shields.io/badge/HuggingFace-4.11.3-007FFF?logo=huggingface&logoColor=white)
+![ESLint](https://img.shields.io/badge/ESLint-8.28.0-61DAFB?logo=eslint&logoColor=white)
+![Prettier](https://img.shields.io/badge/Prettier-3.5.3-FDE2C6?logo=prettier&logoColor=white)
+![License](https://img.shields.io/badge/License-MIT-C0C0C0)
+
 ---
 
 ## Trader Charts Frontend - Overview
 
 The **Frontend** is the user-facing application built with React, MUI, Redux, and D3.js.  
 It provides interactive charts and dashboards for visualizing data collected and processed by the
-backend and data collector.  
+backend and compute services.  
 [See backend →](https://github.com/TraderCharts/trader-charts-backend) |
-[See data collector →](https://github.com/TraderCharts/trader-charts-data-collector)
+[See compute services →](https://github.com/TraderCharts/trader-charts-data-collector)
 
 ---
 
