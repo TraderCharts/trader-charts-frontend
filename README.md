@@ -218,69 +218,115 @@ use the server that retrieves mock data. Please run the following commands:
 
 - Auth0 email login:
 
-![Login](assets/img/readme/auth0_login.png)
+![Login](assets/img/readme/sections/auth0_login.png)
 
 - Charts section:
 
-![Charts section](assets/img/readme/charts_section.png)
+![Charts section](assets/img/readme/sections/charts_section.png)
 
 - Alerts section:
 
-![Alerts section](assets/img/readme/alerts_section.png)
+![Alerts section](assets/img/readme/sections/alerts_section.png)
 
 - Trending news and topic extraction with AI:
 
-![trading-news-main-topics](assets/img/readme/trading-news-main-topics.png)
-
-- Trending news and sentimental analysis with AI:
-
-![trading-news-sentiment-analysis](assets/img/readme/trading-news-sentiment-analysis.png)
+![trading-news-main-topics](assets/img/readme/sections/trading-news-main-topics.png)
 
 - Kairos AI Chat. Ask anything!
 
-![karios-ai](assets/img/readme/karios-ai.png)
+![karios-ai](assets/img/readme/sections/karios-ai.png)
 
-- Interactive components of Fibonacci retracements and parallel channels:
+## 📸 Screenshots
 
-![fibonacci_and_parallel_channel_ic](assets/img/readme/fibonacci_and_parallel_channel_ic.png)
+- Chart Controls (TimeRange, Linear/Log Scale)
+- Drawing Tools (Arrow, Rectangle, FreehandBrush, Linear Regression)
+- Day/Week/Month Selection
+- AI & Trending News (sentiment analysis, multilingual topics)
+- Interactive Tools (Fibonacci, Trendlines, Rays, Gann Fans)
+- Search & Indicators (tickers, indicators, details, color picker)
+- Alerts System (create, edit, delete alerts)
+- General (profile menu)
 
-- Interactive components of Trend lines:
+<details>
+<summary>Click to see screenshots</summary>
 
-![trendlines_ic](assets/img/readme/trendlines_ic.png)
+### Chart Controls
 
-- Interactive components of Rays and Extended lines:
+TimeRange selection (1M, 3M, 6M, 1Y, 5Y) and Linear/Log scale toggle:
 
-![rays_extendLines_ic](assets/img/readme/rays_extendLines_ic.png)
+![Linear/Log scale](assets/img/readme/charts/controlsbar-timerange-selection.jpg)
 
-- Gann fans interactive component:
+![TimeRange selection](assets/img/readme/charts/controlsbar-linear-log-scale.jpg)
 
-![gann_fans_ic](assets/img/readme/gann_fans_ic.png)
+### Drawing Tools
 
-- Tickers search box:
+Arrow, Rectangle, FreehandBrush, Linear Regression Channel and more:
 
-![Tickers search box](assets/img/readme/tickers_searchbox.png)
+![Drawing Tools](assets/img/readme/charts/more%20interactive%20feats.png)
 
-- Indicator's search box:
+### Day/Week/Month Selection
 
-![indicators_searchbox](assets/img/readme/indicators_searchbox.png)
+Candle interval selection on main top bar:
 
-- Indicator's details:
+![Day/Week/Month Selection](assets/img/readme/charts/candle-interval-selection.jpg)
 
-![indicator_details_1](assets/img/readme/indicator_details_1.png)
+### AI & Trending News
 
-- Indicator's color picker:
+Trending news and sentimental analysis with AI:
 
-![indicator_details_2](assets/img/readme/indicator_details_2.png)
+![trading-news-sentiment-analysis](assets/img/readme/trendingNews/trading-news-sentiment-analysis.png)
 
-- Alerts editable details:
+### Interactive Tools
 
-![Alerts details](assets/img/readme/alerts_details.png)
+Interactive components of Fibonacci retracements and parallel channels:
 
-![Alerts details fields](assets/img/readme/alerts_details_fields.png)
+![fibonacci_and_parallel_channel_ic](assets/img/readme/charts/fibonacci_and_parallel_channel_ic.png)
 
-- Profile Menu:
+Interactive components of Trend lines:
 
-![Profile Menu](assets/img/readme/profile_menu_2.png)
+![trendlines_ic](assets/img/readme/charts/trendlines_ic.png)
+
+Interactive components of Rays and Extended lines:
+
+![rays_extendLines_ic](assets/img/readme/charts/rays_extendLines_ic.png)
+
+Gann fans interactive component:
+
+![gann_fans_ic](assets/img/readme/charts/gann_fans_ic.png)
+
+### Search & Indicators
+
+Tickers search box:
+
+![Tickers search box](assets/img/readme/charts/tickers_searchbox.png)
+
+Indicator's search box:
+
+![indicators_searchbox](assets/img/readme/charts/indicators_searchbox.png)
+
+Indicator's details:
+
+![indicator_details_1](assets/img/readme/charts/indicator_details_1.png)
+
+Indicator's color picker:
+
+![indicator_details_2](assets/img/readme/charts/indicator_details_2.png)
+
+### Alerts System
+
+Alerts editable details:
+
+![Alerts details](assets/img/readme/alerts/alerts_details.png)
+
+![Alerts details fields](assets/img/readme/alerts/alerts_details_fields.png)
+
+### General
+
+Profile Menu:
+
+![Profile Menu](assets/img/readme/general/profile_menu_2.png)
+
+</details>
 
 ## Required Env Variables
 
