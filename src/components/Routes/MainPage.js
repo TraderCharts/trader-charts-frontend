@@ -17,9 +17,10 @@ import EditIndicator from "../../containers/Indicator/EditIndicator/index";
 import KairosAISection from "../../containers/KairosAI/KairosAISection";
 import SelectTicker from "../../containers/Ticker/SelectTicker";
 import TrendingNewsSection from "../../containers/TrendingNews/TrendingNewsSection";
-import { fetchNegotiableInstruments } from "../../redux/actions/byma.action";
+import { fetchNegotiableInstruments, fetchBymaStocksData } from "../../redux/actions/byma.action";
 import { fetchIndicatorMetadata } from "../../redux/actions/indicators.action";
 import { clearAuthSagaRequest } from "../../redux/sagas/actions/authentication.action";
+import { changeSelectedTicker } from "../../redux/actions/containers.action";
 
 const appLeftNavWidth = 78;
 
@@ -30,7 +31,12 @@ const StyledChartContainer = styled(Box)(() => ({
     height: "100vh",
 }));
 
-const MainPage = ({ onFetchNegotiableInstruments, onFetchIndicatorMetadata }) => {
+const MainPage = ({
+    onFetchNegotiableInstruments,
+    onFetchIndicatorMetadata,
+    onChangeSelectedTicker,
+    onFetchBymaStocksData,
+}) => {
     const location = useLocation();
     const [enableInteractiveObject, setEnableInteractiveObject] = useState(undefined);
 
@@ -43,6 +49,11 @@ const MainPage = ({ onFetchNegotiableInstruments, onFetchIndicatorMetadata }) =>
         window.scrollTo(0, 0);
     }, [location.pathname]);
 
+    const onChangeTicker = (negotiableInstrument) => {
+        onChangeSelectedTicker(negotiableInstrument);
+        onFetchBymaStocksData();
+    };
+
     return (
         <Box
             sx={{
@@ -54,7 +65,7 @@ const MainPage = ({ onFetchNegotiableInstruments, onFetchIndicatorMetadata }) =>
                 enableInteractiveObject={enableInteractiveObject}
                 setEnableInteractiveObject={setEnableInteractiveObject}
             />
-            <AppUpperNav appLeftNavWidth={appLeftNavWidth} />
+            <AppUpperNav appLeftNavWidth={appLeftNavWidth} onChangeInterval={onChangeTicker} />
             <StyledChartContainer>
                 <Toolbar />
                 <Routes>
@@ -99,6 +110,8 @@ const mapActionsToProps = (dispatch) => ({
     clearAuth: bindActionCreators(clearAuthSagaRequest, dispatch),
     onFetchNegotiableInstruments: bindActionCreators(fetchNegotiableInstruments, dispatch),
     onFetchIndicatorMetadata: bindActionCreators(fetchIndicatorMetadata, dispatch),
+    onChangeSelectedTicker: (value) => dispatch(changeSelectedTicker(value)),
+    onFetchBymaStocksData: () => dispatch(fetchBymaStocksData()),
 });
 
 const enhance = (pure) => connect(mapStateToProps, mapActionsToProps)(pure);

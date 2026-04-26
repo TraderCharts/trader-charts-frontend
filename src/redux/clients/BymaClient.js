@@ -23,8 +23,10 @@ export default class BymaClient extends ApiClient {
     };
 
     // -------------------------------- BymaStocksData ----------------------------------------
-    getBymaStocksData = (tickerCode) => {
-        const promise = this.get(`bymaStocksData?ticker=${tickerCode}`).then((data) => {
+    getBymaStocksData = (ticker) => {
+        const promise = this.get(
+            `bymaStocksData?ticker=${ticker.code}&interval=${ticker.interval}`
+        ).then((data) => {
             const parseDate = timeParse("%Y-%m-%d");
             data.forEach((d) => {
                 d.date = parseDate(d.date);

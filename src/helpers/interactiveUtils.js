@@ -36,7 +36,7 @@ export function getInteractiveNodes() {
     return this.interactiveNodes;
 }
 */
-import { isDefined, isNotDefined, mapObject } from "@react-financial-charts/core";
+import { isDefined, isNotDefined, mapObject } from "react-financial-charts";
 
 export function getValueFromOverride(override, index, key, defaultValue) {
     if (isDefined(override) && override.index === index) {

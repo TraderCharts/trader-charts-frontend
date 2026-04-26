@@ -8,9 +8,7 @@ import {
     setUserDefinition,
 } from "../../actionDefinitions/authentication.actionDefinitions";
 
-export function* setAuth({ apiClients, auth }) {
-    console.log("apiClients", apiClients);
-    console.log("auth", auth);
+export function* setAuth({ auth }) {
     const expiresAt = JSON.stringify(
         process.env.REACT_APP_TIMEOUT_MINS * 60 * 1000 + new Date().getTime()
     );

@@ -27,12 +27,12 @@
 
 ### React Financial Charts - Exclusive version
 
-![React](https://img.shields.io/badge/React-16%7C17%7C18%7C19-4B32C3?logo=react&logoColor=white)
+![React](https://img.shields.io/badge/React-18%7C19-4B32C3?logo=react&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-4.9.5-3178C6?logo=typescript&logoColor=white)
-![D3.js](https://img.shields.io/badge/D3.js-2.9.1-E3FF00?logo=d3.js&logoColor=white)
-![Storybook](https://img.shields.io/badge/Storybook-6.1.20-5B8CD6?logo=storybook&logoColor=white)
-![ESLint](https://img.shields.io/badge/ESLint-8.40.0-61DAFB?logo=eslint&logoColor=white)
-![Prettier](https://img.shields.io/badge/Prettier-2.8.8-FDE2C6?logo=prettier&logoColor=white)
+![D3.js](https://img.shields.io/badge/D3.js-6.0.0-E3FF00?logo=d3.js&logoColor=white)
+![Storybook](https://img.shields.io/badge/Storybook-8.6.18-5B8CD6?logo=storybook&logoColor=white)
+![ESLint](https://img.shields.io/badge/ESLint-8.56.0-61DAFB?logo=eslint&logoColor=white)
+![Prettier](https://img.shields.io/badge/Prettier-3.6.2-FDE2C6?logo=prettier&logoColor=white)
 ![License](https://img.shields.io/badge/License-MIT-C0C0C0)
 
 ### Kairos AI
@@ -61,8 +61,11 @@ backend and compute services.
 
 🚀 **Want to contribute?**
 
-We welcome collaborators who wish to contribute and help enhance this trading tool. Feel free to
-reach out to the maintainers to get involved.
+This open-source platform follows a release-based model.
+
+The public repository contains stable releases with full source code for inspection, testing, and forking.
+
+Contributions and collaborations are welcome. Feel free to reach out.
 
 ---
 
@@ -156,79 +159,52 @@ use the server that retrieves mock data. Please run the following commands:
 
         $ npm run start-develop
 
-### Roadmap features
+## Features
 
-- [x] Design main project structure
-- [x] Add Auth0 login component for login with Email
-- [x] Add Auth0 login component for login with Facebook
-- [x] Add general layout, main frame, upper bar, sidebar and profile picture
-- [x] Add profile menu
+### 📊 Charting & Technical Analysis
 
-- [x] Add charts section design
-- [x] Add candlesticks type to charts
-- [x] Add volume indicator to charts
-- [x] Add volume profile indicator to charts
+- Candlestick, Volume and Volume Profile charts
+- Interactive indicators: SMA, EMA, OHLC, RSI, ATR
+- Add, edit and delete indicators
+- Color picker and thickness selector for indicators
+- Tickers search box
 
-- [x] Allow running project with simulated data, to be able to develop this project independently of
-      the backend project.
+### ✏️ Drawing Tools
 
-- [x] Add tickers search box
-- [x] Add Open-High-Low-Close price fixed indicator (OHLC)
-- [x] Add moving average interactive indicator (SMA)
-- [x] Add exponential moving average interactive indicator (OHLC)
-- [x] Add indicators search box, to be able to add them to chart
-- [x] Allow to select the thickness of interactive indicators
-- [x] Allow to select the color of interactive indicators
-- [x] Add color picker, to be able to select the color of interactive indicators
-- [x] Add labels with details of interactive indicators
-- [x] Allow to edit interactive indicators, clicking on labels
-- [x] Add alerts section design
-- [x] Allow create alerts
-- [x] Allow edit alerts
-- [x] Fork finance chart library, and add new features to be able to delete selected lines este es
-      el contexto pero solo corregi lo anterior q te pedi . NO REPITAS TODO!
+- TrendLine, FibonacciRetracement, Ray, Xlines
+- Gann Fan and Equidistant Channel
+- Text, Rectangle, Arrow, FreehandBrush
+- Linear Regression Channel with group channels
+- Price Range and MarqueeZoom measurement tools
+- ChartControlsBar with Linear/Log scale and TimeRange selector (1M, 3M, 6M, 1Y, 5Y)
+- EdgeIndicator for Y-axis last values
+- OHLCTooltip for Open/High/Low/Close
+- onSelect and delete interactive objects with backspace
 
-### Roadmap features
+### 🤖 AI Features
 
-- [x] Design main project structure
-- [x] Add Auth0 login component for login with Email
-- [x] Add Auth0 login component for login with Facebook
-- [x] Add general layout, main frame, upper bar, sidebar and profile picture
-- [x] Add profile menu
+- Trending news with LLM sentiment analysis
+- Multilingual topic extraction
+- Kairos AI Chat (ChatGPT-like)
 
-- [x] Add charts section design
-- [x] Add candlesticks type to charts
-- [x] Add volume indicator to charts
-- [x] Add volume profile indicator to charts
+### 🔔 Alerts System
 
-- [x] Allow running project with simulated data, to be able to develop this project independently of
-      the backend project.
+- Create, edit and delete alerts
+- Alert points table with active field and description
 
-- [x] Add tickers search box
-- [x] Add Open-High-Low-Close price fixed indicator (OHLC)
-- [x] Add moving average interactive indicator (SMA)
-- [x] Add exponential moving average interactive indicator (OHLC)
-- [x] Add indicators search box, to be able to add them to chart
-- [x] Allow to select the thickness of interactive indicators
-- [x] Allow to select the color of interactive indicators
-- [x] Add color picker, to be able to select the color of interactive indicators
-- [x] Add labels with details of interactive indicators
-- [x] Allow to edit interactive indicators, clicking on labels
-- [x] Add alerts section design
-- [x] Allow create alerts
-- [x] Allow edit alerts
-- [x] Fork finance chart library, and add new features to be able to delete selected lines
-- [x] Adding trending news sections from several different sources. It's possible to configure news from any country in any language
-- [x] Adding sentiment analysis for each news using Large Language Models (LLMs) trained specifically for financial news
-- [x] Adding topics for each news using multilingual Large Language Models (LLMs)
-- [x] Adding Kairos AI chat, similar to ChatGPT. You can ask anything and the model will reply. The model can search the internet
+### 🔐 Authentication
 
-### Future features
+- Auth0 login with Email and Facebook
+- Profile menu with user info
 
-- [ ] Allow to remove all chart components
-- [ ] Save chart components on templates
+### 🐳 Deployment & Orchestration
 
-### Trading Charts demo
+- Docker, docker-compose and Kubernetes support
+- Multi-stage Dockerfile (53% size reduction)
+- MongoDB integration
+- Mock data support for development
+
+## Trading Charts demo
 
 - [Demo Video](https://drive.google.com/file/d/12vBuQgQfU6vP4CiAQe6WRfc9711vaEyW/view?usp=sharing)
 

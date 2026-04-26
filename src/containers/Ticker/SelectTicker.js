@@ -18,7 +18,7 @@ import { tickerIcons } from "../../constants/tickerIcons";
 import { fuzzySearch } from "../../helpers/search";
 import { fetchBymaStocksData } from "../../redux/actions/byma.action";
 import {
-    changeSelectedTickerCode,
+    changeSelectedTicker,
     changeShowSelectTicker,
 } from "../../redux/actions/containers.action";
 
@@ -29,14 +29,14 @@ const mapStateToProps = (state) => ({
 
 const mapActionsToProps = (dispatch) => ({
     onChangeShowSelectTicker: (value) => dispatch(changeShowSelectTicker(value)),
-    onChangeSelectedTickerCode: (value) => dispatch(changeSelectedTickerCode(value)),
+    onChangeSelectedTicker: (value) => dispatch(changeSelectedTicker(value)),
     onFetchBymaStocksData: () => dispatch(fetchBymaStocksData()),
 });
 
 const SelectTicker = ({
     showSelectTicker = false,
     onChangeShowSelectTicker,
-    onChangeSelectedTickerCode,
+    onChangeSelectedTicker,
     onFetchBymaStocksData,
     negotiableInstruments,
 }) => {
@@ -44,7 +44,7 @@ const SelectTicker = ({
 
     const onClose = () => onChangeShowSelectTicker(false);
     const onListItemClick = (negotiableInstrument) => () => {
-        onChangeSelectedTickerCode(negotiableInstrument.ticker);
+        onChangeSelectedTicker({ code: negotiableInstrument.ticker });
         onFetchBymaStocksData();
     };
     const onChange = (event) => setTickerListSearch(event.target.value);
@@ -106,7 +106,7 @@ const SelectTicker = ({
 SelectTicker.propTypes = {
     showSelectTicker: PropTypes.bool,
     onChangeShowSelectTicker: PropTypes.func.isRequired,
-    onChangeSelectedTickerCode: PropTypes.func.isRequired,
+    onChangeSelectedTicker: PropTypes.func.isRequired,
     onFetchBymaStocksData: PropTypes.func.isRequired,
 };
 

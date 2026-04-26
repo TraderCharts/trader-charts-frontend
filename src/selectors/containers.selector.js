@@ -1,2 +1,2 @@
 export const containersSelector = (state) => state.containers;
-export const selectedTickerCodeSelector = (state) => state.containers.selectedTickerCode;
+export const selectedTickerSelector = (state) => state.containers.selectedTicker;

@@ -15,6 +15,8 @@ const StyledListItemIcon = styled(ListItemIcon)({
     height: 32,
     transform: "scale(1.2)",
     minWidth: "unset",
+    justifyContent: "center",
+    alignItems: "center",
 });
 
 const TrendingNews = ({ selected, onClick }) => {

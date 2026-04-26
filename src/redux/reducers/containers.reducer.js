@@ -3,14 +3,14 @@ import {
     CHANGE_SHOW_COLOR_PICKER,
     CHANGE_SHOW_EDIT_INDICATOR,
     CHANGE_SHOW_SELECT_TICKER,
-    CHANGE_SELECTED_TICKER_CODE,
+    CHANGE_SELECTED_TICKER,
 } from "../actions/containers.action";
 
 const initialState = {
     showAddIndicator: false,
     showEditIndicator: false,
     showSelectTicker: false,
-    selectedTickerCode: "AGRO",
+    selectedTicker: { code: "AGRO", interval: "D" },
 };
 
 const containersReducer = (state = initialState, action) => {
@@ -23,8 +23,8 @@ const containersReducer = (state = initialState, action) => {
             return { ...state, showColorPicker: action.value };
         case CHANGE_SHOW_SELECT_TICKER:
             return { ...state, showSelectTicker: action.value };
-        case CHANGE_SELECTED_TICKER_CODE:
-            return { ...state, selectedTickerCode: action.value };
+        case CHANGE_SELECTED_TICKER:
+            return { ...state, selectedTicker: { ...state.selectedTicker, ...action.value } };
         default:
             return state;
     }

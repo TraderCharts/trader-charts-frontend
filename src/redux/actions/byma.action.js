@@ -10,8 +10,8 @@ import {
 import { showPageDefinition } from "../actionDefinitions/containers.actionDefinitions";
 
 export const fetchBymaStocksData = () => (dispatch, getState, apis) => {
-    const selectedTickerCode = getState().containers.selectedTickerCode;
-    apis.bymaClient.getBymaStocksData(selectedTickerCode).then((data) => {
+    const selectedTicker = getState().containers.selectedTicker;
+    apis.bymaClient.getBymaStocksData(selectedTicker).then((data) => {
         dispatch(fetchBymaStocksDataDefinition(data));
     });
 };

@@ -1,9 +1,5 @@
-import { change } from "@react-financial-charts/indicators";
-import { format } from "d3-format";
-import { timeFormat } from "d3-time-format";
-import PropTypes from "prop-types";
-import { useCallback, useEffect, useRef, useState } from "react";
 import {
+    change,
     BarSeries,
     CandlestickSeries,
     Chart,
@@ -13,9 +9,6 @@ import {
     discontinuousTimeScaleProvider,
     EdgeIndicator,
     ema,
-    EquidistantChannel,
-    FibonacciRetracement,
-    GannFan,
     Label,
     LineSeries,
     MouseCoordinateX,
@@ -23,7 +16,6 @@ import {
     MovingAverageTooltip,
     OHLCTooltip,
     sma,
-    TrendLine,
     VolumeProfileSeries,
     withDeviceRatio,
     withSize,
@@ -31,11 +23,17 @@ import {
     YAxis,
     ZoomButtons,
 } from "react-financial-charts";
+import { MarqueeZoom } from "@react-financial-charts/interactive";
+import { format } from "d3-format";
+import { timeFormat } from "d3-time-format";
+import PropTypes from "prop-types";
+import { useCallback, useEffect, useState, useRef } from "react";
 import { connect } from "react-redux";
+import { scaleLog } from "d3-scale";
 
-import { hexToRGBA } from "../../helpers/parse";
 import { changeSelectedIndicatorMetadata } from "../../redux/actionDefinitions/indicators.actionDefinitions";
 import { changeShowEditIndicator } from "../../redux/actions/containers.action";
+import ChartTools from "./ChartTools";
 
 const ChartLayout = ({
     onChangeShowEditIndicator,
@@ -47,22 +45,44 @@ const ChartLayout = ({
     ratio,
     enableInteractiveObject,
     setEnableInteractiveObject,
+    yScale,
+    timeRange = "1M",
 }) => {
+    const [selectedInteractiveObject, setSelectedInteractiveObject] = useState(undefined);
     const [extendLines, setExtendLines] = useState([]);
     const [rays, setRays] = useState([]);
     const [trends, setTrends] = useState([]);
     const [retracements, setRetracements] = useState([]);
     const [channels, setChannels] = useState([]);
+    const [linearRegressionChannels, setLinearRegressionChannels] = useState([]);
     const [fans, setFans] = useState([]);
-    const [selectedInteractiveObject, setSelectedInteractiveObject] = useState(undefined);
+    const [freehandBrushDrawings, setFreehandBrushDrawings] = useState([]);
+    const [arrows, setArrows] = useState([]);
+    const [rectangles, setRectangles] = useState([]);
+    const [priceRanges, setPriceRanges] = useState([]);
+    const [texts, setTexts] = useState([]);
+    const chartCanvasRef = useRef(null);
 
     useEffect(() => {
         document.addEventListener("keyup", onKeyPress);
-
         return () => {
             document.removeEventListener("keyup", onKeyPress);
         };
-    }, [extendLines, rays, trends, retracements, channels, fans, selectedInteractiveObject]);
+    }, [
+        selectedInteractiveObject,
+        extendLines,
+        rays,
+        trends,
+        retracements,
+        channels,
+        linearRegressionChannels,
+        fans,
+        freehandBrushDrawings,
+        arrows,
+        rectangles,
+        priceRanges,
+        texts,
+    ]);
 
     const deleteInteractiveObject = (interactiveObject) => {
         switch (interactiveObject) {
@@ -106,12 +126,62 @@ const ChartLayout = ({
                 setChannels(newChannels);
                 return;
             }
+            case "linearRegressionChannels": {
+                const newChannels = linearRegressionChannels.filter((elem) => !elem.selected);
+                if (newChannels.length > 0) {
+                    newChannels[0].selected = true;
+                }
+                setLinearRegressionChannels(newChannels);
+                return;
+            }
             case "fans": {
                 const newFans = fans.filter((elem) => !elem.selected);
                 if (newFans.length > 0) {
                     newFans[0].selected = true;
                 }
                 setFans(newFans);
+                return;
+            }
+            case "freehandBrushDrawings": {
+                const newFreehandBrushDrawings = freehandBrushDrawings.filter(
+                    (elem) => !elem.selected
+                );
+                if (newFreehandBrushDrawings.length > 0) {
+                    newFreehandBrushDrawings[0].selected = true;
+                }
+                setFreehandBrushDrawings(newFreehandBrushDrawings);
+                return;
+            }
+            case "arrows": {
+                const newArrows = arrows.filter((elem) => !elem.selected);
+                if (newArrows.length > 0) {
+                    newArrows[0].selected = true;
+                }
+                setArrows(newArrows);
+                return;
+            }
+            case "rectangles": {
+                const newRectangles = rectangles.filter((elem) => !elem.selected);
+                if (newRectangles.length > 0) {
+                    newRectangles[0].selected = true;
+                }
+                setRectangles(newRectangles);
+                return;
+            }
+            case "priceRanges": {
+                const newPriceRanges = priceRanges.filter((elem) => !elem.selected);
+                if (newPriceRanges.length > 0) {
+                    newPriceRanges[0].selected = true;
+                }
+                setPriceRanges(newPriceRanges);
+                return;
+            }
+            case "texts": {
+                const newTexts = texts.filter((elem) => !elem.selected);
+                if (newTexts.length > 0) {
+                    newTexts[0].selected = true;
+                }
+                setTexts(newTexts);
                 return;
             }
         }
@@ -128,7 +198,21 @@ const ChartLayout = ({
                 }
             }
         },
-        [extendLines, rays, trends, retracements, channels, fans, selectedInteractiveObject]
+        [
+            selectedInteractiveObject,
+            extendLines,
+            rays,
+            trends,
+            retracements,
+            channels,
+            linearRegressionChannels,
+            fans,
+            freehandBrushDrawings,
+            arrows,
+            rectangles,
+            priceRanges,
+            texts,
+        ]
     );
 
     const onClickSeriesLabel = (e, tooltip) => {
@@ -164,23 +248,27 @@ const ChartLayout = ({
         }
         return { indicatorsList, dataWithIndicators, yExtentsIndicators };
     };
+    const getXExtentsByTimeRange = (data, xAccessor, timeRange) => {
+        const rangeToDays = {
+            "1M": 30,
+            "3M": 90,
+            "6M": 180,
+            "1Y": 365,
+            "5Y": 1825,
+            ALL: data.length,
+        };
+        const daysToShow = rangeToDays[timeRange] || 30;
+        const endIndex = data.length - 1;
+        const startIndex = timeRange === "ALL" ? 0 : Math.max(0, data.length - daysToShow);
+        return [xAccessor(data[startIndex]), xAccessor(data[endIndex])];
+    };
 
     const applyXScale = (dataToApplyScale) => {
         const xScaleProvider = discontinuousTimeScaleProvider.inputDateAccessor((d) => d.date);
-
         const calculatedData = change()(dataToApplyScale);
         const { data, xScale, xAccessor, displayXAccessor } = xScaleProvider(calculatedData);
-        const start = xAccessor(data[data.length - 1]);
-        const end = xAccessor(data[Math.max(0, data.length - 150)]);
-        const xExtents = [start, end];
-
-        return {
-            data,
-            xScale,
-            xAccessor,
-            displayXAccessor,
-            xExtents,
-        };
+        const xExtents = getXExtentsByTimeRange(data, xAccessor, timeRange);
+        return { data, xScale, xAccessor, displayXAccessor, xExtents };
     };
 
     const renderIndicators = (indicatorsList) => {
@@ -193,8 +281,6 @@ const ChartLayout = ({
                 onDoubleClick={() => console.log("doubleClick")}
             />
         ));
-
-        // show point at line
         const indicatorsPoints = indicatorsList.map((indicator, indicatorIndex) => (
             <CurrentCoordinate
                 key={indicatorsLines.length + indicatorIndex}
@@ -206,7 +292,6 @@ const ChartLayout = ({
     };
 
     const getIndicatorsTooltips = (indicatorsList) =>
-        // show labels
         indicatorsList.map((indicator) => ({
             yAccessor: indicator.instance.accessor(),
             type: indicator.metadata.type,
@@ -217,91 +302,53 @@ const ChartLayout = ({
 
     const pricesDisplayFormat = format(".2f");
 
-    /*
-        const toObject = (array, iteratee = identity) => {
-            return array.reduce((returnObj, a) => {
-                const [key, value] = iteratee(a);
-                return {
-                    ...returnObj,
-                    [key]: value
-                };
-            }, {});
-        }
-
-
-        const handleSelection = (e, interactives, moreProps) => {
-            const objs = toObject(interactives, each => {
-                return [
-                    `trends_${each.chartId}`,
-                    each.objects,
-                ];
-            })
-            //this.setState(objs);
-        }
-    */
-
-    const onDrawCompleteExtendsLine = (e, extendLines) => {
-        unselectAllInteractiveObjects();
-        setEnableInteractiveObject(undefined);
-        setExtendLines(extendLines);
-        setSelectedInteractiveObject("extendLines");
-    };
-    const onDrawCompleteRayLine = (e, rays) => {
-        unselectAllInteractiveObjects();
-        setEnableInteractiveObject(undefined);
-        setRays(rays);
-        setSelectedInteractiveObject("rays");
-    };
-    const onDrawCompleteTrendLine = (e, trends) => {
-        unselectAllInteractiveObjects();
-        setEnableInteractiveObject(undefined);
-        setTrends(trends);
-        setSelectedInteractiveObject("trends");
-    };
-    const onDrawCompleteFibonacciRetracements = (e, retracements) => {
-        unselectAllInteractiveObjects();
-        setEnableInteractiveObject(undefined);
-        setRetracements(retracements);
-        setSelectedInteractiveObject("retracements");
-    };
-    const onDrawCompleteEquidistantChannels = (e, channels) => {
-        unselectAllInteractiveObjects();
-        setEnableInteractiveObject(undefined);
-        setChannels(channels);
-        setSelectedInteractiveObject("channels");
-    };
-    const onDrawCompleteGannFans = (e, fans) => {
-        unselectAllInteractiveObjects();
-        setEnableInteractiveObject(undefined);
-        setFans(fans);
-        setSelectedInteractiveObject("fans");
-    };
-    const openCloseColor = (data) => {
-        return data.close > data.open ? "#26a69a" : "#ef5350";
-    };
-
     const unselectAllInteractiveObjects = () => {
         setExtendLines(extendLines.map((elem) => ({ ...elem, selected: false })));
         setRays(rays.map((elem) => ({ ...elem, selected: false })));
         setTrends(trends.map((elem) => ({ ...elem, selected: false })));
         setRetracements(retracements.map((elem) => ({ ...elem, selected: false })));
         setChannels(channels.map((elem) => ({ ...elem, selected: false })));
+        setLinearRegressionChannels(
+            linearRegressionChannels.map((elem) => ({ ...elem, selected: false }))
+        );
         setFans(fans.map((elem) => ({ ...elem, selected: false })));
+        setFreehandBrushDrawings(
+            freehandBrushDrawings.map((elem) => ({ ...elem, selected: false }))
+        );
+        setArrows(arrows.map((elem) => ({ ...elem, selected: false })));
+        setRectangles(rectangles.map((elem) => ({ ...elem, selected: false })));
+        setPriceRanges(priceRanges.map((elem) => ({ ...elem, selected: false })));
+        setTexts(texts.map((elem) => ({ ...elem, selected: false })));
     };
 
     const { indicatorsList, dataWithIndicators } = loadIndicators();
     const { data, xScale, xAccessor, displayXAccessor, xExtents } = applyXScale(dataWithIndicators);
-
     const indicatorsTooltips = getIndicatorsTooltips(indicatorsList);
+    const openCloseColor = (data) => {
+        return data.close > data.open ? "#26a69a" : "#ef5350";
+    };
 
-    const trendLineRef = useRef(null);
-    const FibonacciRetracementRef = useRef(null);
-    const EquidistantChannelRef = useRef(null);
-    const GannFanRef = useRef(null);
+    const handleMarqueeZoom = useCallback((newXExtents) => {
+        if (chartCanvasRef.current && newXExtents && newXExtents.length === 2) {
+            const sortedExtents = [
+                Math.min(newXExtents[0], newXExtents[1]),
+                Math.max(newXExtents[0], newXExtents[1]),
+            ];
+            chartCanvasRef.current.xAxisZoom(sortedExtents);
+        }
+    }, []);
+
+    const handleReset = () => {
+        if (chartCanvasRef.current && xAccessor && data.length > 0) {
+            const [start, end] = getXExtentsByTimeRange(data, xAccessor, timeRange);
+            chartCanvasRef.current.xAxisZoom([start, end]);
+        }
+    };
 
     return (
         <ChartCanvas
-            height={800}
+            ref={chartCanvasRef}
+            height={height}
             width={width}
             ratio={ratio}
             margin={{ left: 70, right: 70, top: 20, bottom: 30 }}
@@ -316,9 +363,8 @@ const ChartLayout = ({
             <Chart
                 id={1}
                 height={550}
-                yExtents={(data) => {
-                    return [data.high, data.low];
-                }}
+                yExtents={(data) => [data.high, data.low]}
+                yScale={yScale === "log" ? scaleLog() : undefined}
                 padding={{ top: 10, bottom: 0 }}
             >
                 <XAxis showGridLines axisAt="bottom" orient="bottom" showTicks={false} />
@@ -328,9 +374,7 @@ const ChartLayout = ({
                     fill={openCloseColor}
                     lineStroke={openCloseColor}
                     displayFormat={pricesDisplayFormat}
-                    yAccessor={(data) => {
-                        return data.close;
-                    }}
+                    yAccessor={(data) => data.close}
                 />
                 <Label text="Trader Charts" x={width / 2.2} y={height / 4} />
                 <VolumeProfileSeries />
@@ -342,117 +386,56 @@ const ChartLayout = ({
                 />
                 <MouseCoordinateY at="right" orient="right" displayFormat={format(".2f")} />
                 <OHLCTooltip origin={[-40, -2]} />
-                <ZoomButtons />
+                <ZoomButtons onReset={handleReset} />
                 {renderIndicators(indicatorsList)}
-
                 <MovingAverageTooltip
                     onClick={onClickSeriesLabel}
                     origin={[-38, 15]}
                     options={indicatorsTooltips}
                 />
-                <TrendLine
-                    ref={trendLineRef}
-                    enabled={enableInteractiveObject === "ExtendLine"}
-                    type="XLINE"
-                    snap={false}
-                    onComplete={(e, extendLines) => {
-                        onDrawCompleteExtendsLine(e, extendLines);
-                    }}
-                    trends={extendLines}
-                    onSelect={(e, extendLines) => {
-                        unselectAllInteractiveObjects();
-                        setExtendLines(extendLines);
-                        setSelectedInteractiveObject("extendLines");
-                    }}
-                />
-                <TrendLine
-                    ref={trendLineRef}
-                    enabled={enableInteractiveObject === "Ray"}
-                    type="RAY"
-                    snap={false}
-                    onComplete={(e, rays) => {
-                        onDrawCompleteRayLine(e, rays);
-                    }}
-                    trends={rays}
-                    onSelect={(e, rays) => {
-                        unselectAllInteractiveObjects();
-                        setRays(rays);
-                        setSelectedInteractiveObject("rays");
-                    }}
-                />
-                <TrendLine
-                    ref={trendLineRef}
-                    enabled={enableInteractiveObject === "TrendLine"}
-                    type="LINE"
-                    snap={false}
-                    onComplete={(e, trends) => {
-                        onDrawCompleteTrendLine(e, trends);
-                    }}
+                <ChartTools
+                    enableInteractiveObject={enableInteractiveObject}
+                    unselectAllInteractiveObjects={unselectAllInteractiveObjects}
+                    setEnableInteractiveObject={setEnableInteractiveObject}
+                    setSelectedInteractiveObject={setSelectedInteractiveObject}
+                    extendLines={extendLines}
+                    setExtendLines={setExtendLines}
+                    rays={rays}
+                    setRays={setRays}
                     trends={trends}
-                    onSelect={(e, trends) => {
-                        unselectAllInteractiveObjects();
-                        setTrends(trends);
-                        setSelectedInteractiveObject("trends");
-                    }}
-                />
-                <FibonacciRetracement
-                    ref={FibonacciRetracementRef}
-                    enabled={enableInteractiveObject === "FibonacciRetracement"}
+                    setTrends={setTrends}
                     retracements={retracements}
-                    onComplete={(e, retracements) => {
-                        onDrawCompleteFibonacciRetracements(e, retracements);
-                    }}
-                />
-                <EquidistantChannel
-                    ref={EquidistantChannelRef}
-                    enabled={enableInteractiveObject === "EquidistantChannel"}
-                    onComplete={(e, channels) => {
-                        onDrawCompleteEquidistantChannels(e, channels);
-                    }}
+                    setRetracements={setRetracements}
                     channels={channels}
-                    appearance={{
-                        fill: hexToRGBA("#8AAFE2", 0.2),
-                    }}
-                />
-                <GannFan
-                    ref={GannFanRef}
-                    enabled={enableInteractiveObject === "GannFan"}
-                    onComplete={(e, fans) => {
-                        onDrawCompleteGannFans(e, fans);
-                    }}
+                    setChannels={setChannels}
+                    linearRegressionChannels={linearRegressionChannels}
+                    setLinearRegressionChannels={setLinearRegressionChannels}
                     fans={fans}
-                    appearance={{
-                        fill: [
-                            "#e41a1c",
-                            "#377eb8",
-                            "#4daf4a",
-                            "#984ea3",
-                            "#ff7f00",
-                            "#ffff33",
-                            "#a65628",
-                            "#f781bf",
-                        ].map((elem) => hexToRGBA(elem, 0.2)),
-                    }}
+                    setFans={setFans}
+                    freehandBrushDrawings={freehandBrushDrawings}
+                    setFreehandBrushDrawings={setFreehandBrushDrawings}
+                    arrows={arrows}
+                    setArrows={setArrows}
+                    rectangles={rectangles}
+                    setRectangles={setRectangles}
+                    priceRanges={priceRanges}
+                    setPriceRanges={setPriceRanges}
+                    texts={texts}
+                    setTexts={setTexts}
+                />
+                <MarqueeZoom
+                    enabled={enableInteractiveObject === "MarqueeZoom"}
+                    onZoom={handleMarqueeZoom}
+                    fillStyle="rgba(138, 175, 226, 0.2)"
+                    strokeStyle="#8AAFE2"
                 />
             </Chart>
-            {/*<DrawingObjectSelector
-                    enabled={!enableInteractiveObjects}
-                    getInteractiveNodes={(e, node) => {
-                        return trends_1
-                    }}
-                    drawingObjectMap={{
-                        Trendline: "trends"
-                    }}
-                    onSelect={(e, interactives, moreProps) => {
-                        handleSelection(e, interactives)
-                    }}
-                />*/}
             <Chart
                 id={2}
-                origin={(w, h) => [0, h - 150]}
-                height={150}
+                origin={(w, h) => [0, h - 200]}
+                height={200}
                 yExtents={(d) => d.volume}
-                padding={{ top: 10, bottom: 20 }}
+                padding={{ top: 0, bottom: 10 }}
             >
                 <XAxis axisAt="bottom" orient="bottom" />
                 <YAxis axisAt="left" orient="left" ticks={5} tickFormat={format(".2s")} />
@@ -485,4 +468,4 @@ const mapActionsToProps = (dispatch) => ({
 export default connect(
     mapStateToProps,
     mapActionsToProps
-)(withSize({ style: { minHeight: 600 } })(withDeviceRatio()(ChartLayout)));
+)(withSize({ style: { minHeight: 600, monitorHeight: true } })(withDeviceRatio()(ChartLayout)));
