@@ -16,6 +16,9 @@ import {
     fetchNegotiableInstrumentsAlerts,
     unassignNegotiableInstrumentAlert,
     updateAlert,
+    fetchBymaStocksData,
+    fetchWatchlists,
+    fetchWatchlistLatestData,
 } from "../generators/byma.sagas.generator";
 
 //Alerts
@@ -84,4 +87,19 @@ export function* fetchNegotiableInstrumentsAlertsFlow({ apiClients }) {
 
 export function* fetchTrendingNewsFlow({ apiClients }) {
     yield call(fetchTrendingNews, apiClients);
+}
+
+export function* fetchBymaStocksDataFlow({ apiClients }) {
+    const selectedTicker = yield select((state) => state.containers.selectedTicker);
+
+    yield call(fetchBymaStocksData, apiClients, selectedTicker);
+}
+
+//Watchlists
+export function* fetchWatchlistsFlow({ apiClients }) {
+    const watchlists = yield call(fetchWatchlists, apiClients);
+
+    const tickers = watchlists.flatMap((watchlist) => watchlist.tickers || []);
+
+    yield call(fetchWatchlistLatestData, apiClients, tickers);
 }

@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
-import { fetchBymaStocksData } from "../../redux/actions/byma.action";
+import { fetchBymaStocksData, fetchBondTerms } from "../../redux/actions/byma.action";
+import { changeSelectedTicker } from "../../redux/actions/containers.action";
 import CandleStickChart from "./CandleStickChart";
 import ChartControlsBar from "./ChartControlsBar";
 
@@ -12,13 +13,34 @@ const mapStateToProps = (state) => ({
 
 const mapActionsToProps = (dispatch) => ({
     fetchBymaStocksData: bindActionCreators(fetchBymaStocksData, dispatch),
+    onChangeSelectedTicker: (value) => dispatch(changeSelectedTicker(value)),
+    onFetchBondTerms: (tickers) => dispatch(fetchBondTerms(tickers)),
 });
 
-const ChartChooser = ({ bymaStocksData, fetchBymaStocksData, ...rest }) => {
+const ChartChooser = ({
+    bymaStocksData,
+    fetchBymaStocksData,
+    onChangeSelectedTicker,
+    onFetchBondTerms,
+    ...rest
+}) => {
     const [yScale, setYScale] = useState("linear");
     const [timeRange, setTimeRange] = useState("1M");
 
     useEffect(() => {
+        const storedTicker = localStorage.getItem("lastSelectedTicker");
+
+        if (storedTicker) {
+            try {
+                const lastSelectedTicker = JSON.parse(storedTicker);
+
+                onChangeSelectedTicker(lastSelectedTicker);
+                onFetchBondTerms(lastSelectedTicker.tickers);
+            } catch (error) {
+                localStorage.removeItem("lastSelectedTicker");
+            }
+        }
+
         fetchBymaStocksData();
     }, []);
 

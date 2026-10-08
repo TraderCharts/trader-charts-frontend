@@ -22,6 +22,7 @@ import {
     XAxis,
     YAxis,
     ZoomButtons,
+    SingleValueTooltip,
 } from "react-financial-charts";
 import { MarqueeZoom } from "@react-financial-charts/interactive";
 import { format } from "d3-format";
@@ -232,7 +233,7 @@ const ChartLayout = ({
                     .merge((d, c) => {
                         d[indicatorMetadata.code] = c;
                     })
-                    .accessor((d) => d[indicatorMetadata.code]),
+                    .accessor((d) => (d ? d[indicatorMetadata.code] : undefined)),
             };
         });
         const composeIndicators = indicatorsList
@@ -345,6 +346,30 @@ const ChartLayout = ({
         }
     };
 
+    const formatVolume = (value) => {
+        if (value === undefined || value === null) return "0";
+
+        const num = Number(value);
+        if (isNaN(num)) return "0";
+
+        const absNum = Math.abs(num);
+        const sign = num < 0 ? "-" : "";
+
+        // Formato específico para trading
+        if (absNum >= 1e9) {
+            return sign + (absNum / 1e9).toFixed(2) + "B";
+        } else if (absNum >= 1e6) {
+            return sign + (absNum / 1e6).toFixed(2) + "M";
+        } else if (absNum >= 1e3) {
+            return sign + (absNum / 1e3).toFixed(1) + "K";
+        } else if (absNum >= 1) {
+            return sign + absNum.toFixed(2);
+        } else {
+            // Para números muy pequeños (como crypto)
+            return sign + absNum.toFixed(4);
+        }
+    };
+
     return (
         <ChartCanvas
             ref={chartCanvasRef}
@@ -434,14 +459,20 @@ const ChartLayout = ({
                 id={2}
                 origin={(w, h) => [0, h - 200]}
                 height={200}
-                yExtents={(d) => d.volume}
+                yExtents={[0, (d) => d.volume]}
                 padding={{ top: 0, bottom: 10 }}
             >
                 <XAxis axisAt="bottom" orient="bottom" />
-                <YAxis axisAt="left" orient="left" ticks={5} tickFormat={format(".2s")} />
+                <YAxis axisAt="right" orient="right" ticks={5} tickFormat={format(".2s")} />
+                <MouseCoordinateY at="right" orient="right" displayFormat={formatVolume} />
                 <BarSeries
                     yAccessor={(d) => d.volume}
                     fill={(d) => (d.close > d.open ? "#6BA583" : "red")}
+                />
+                <SingleValueTooltip
+                    yLabel="Volume:"
+                    yDisplayFormat={(d) => formatVolume(d.volume)}
+                    origin={[8, 16]}
                 />
             </Chart>
             <CrossHairCursor />

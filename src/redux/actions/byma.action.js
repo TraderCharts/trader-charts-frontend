@@ -6,11 +6,16 @@ import {
 import {
     fetchBymaStocksDataDefinition,
     fetchNegotiableInstrumentsDefinition,
+    setBondTermsDefinition,
+    addWatchlistTickerDefinition,
+    removeWatchlistTickerDefinition,
 } from "../actionDefinitions/byma.actionDefinitions";
 import { showPageDefinition } from "../actionDefinitions/containers.actionDefinitions";
+import { fetchWatchlistsSagaRequest } from "../sagas/actions/byma.action";
 
 export const fetchBymaStocksData = () => (dispatch, getState, apis) => {
     const selectedTicker = getState().containers.selectedTicker;
+
     apis.bymaClient.getBymaStocksData(selectedTicker).then((data) => {
         dispatch(fetchBymaStocksDataDefinition(data));
     });
@@ -19,6 +24,11 @@ export const fetchBymaStocksData = () => (dispatch, getState, apis) => {
 export const fetchNegotiableInstruments = () => (dispatch, getState, apis) =>
     apis.bymaClient.getNegotiableInstruments().then((data) => {
         dispatch(fetchNegotiableInstrumentsDefinition(data));
+    });
+
+export const fetchBondTerms = (tickers) => (dispatch, getState, apis) =>
+    apis.bymaClient.getBondTermsByTickers(tickers).then((data) => {
+        dispatch(setBondTermsDefinition(data));
     });
 
 export const fetchAlertConditionExpressions = () => (dispatch, getState, apis) =>
@@ -44,3 +54,15 @@ export const fetchSelectedAlert = (alertId) => (dispatch, getState, apis) => {
 export const showPageEditAlerts = (show) => (dispatch) => {
     dispatch(showPageDefinition(show, "editAlerts"));
 };
+
+export const addWatchlistTicker = (ticker) => (dispatch, getState, apis) =>
+    apis.bymaClient.addTicker(ticker).then(() => {
+        dispatch(addWatchlistTickerDefinition());
+        dispatch(fetchWatchlistsSagaRequest());
+    });
+
+export const removeWatchlistTicker = (ticker) => (dispatch, getState, apis) =>
+    apis.bymaClient.removeTicker(ticker).then(() => {
+        dispatch(removeWatchlistTickerDefinition());
+        dispatch(fetchWatchlistsSagaRequest());
+    });

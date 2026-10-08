@@ -13,6 +13,8 @@ export const FETCH_LEADER_ACTIONS_ALERTS_SAGA_REQUEST =
 export const CALCULATE_ALERTS_SAGA_REQUEST = "@saga/CALCULATE_ALERTS_SAGA_REQUEST";
 export const CALCULATE_ALERT_SAGA_REQUEST = "@saga/CALCULATE_ALERT_SAGA_REQUEST";
 export const FETCH_TRENDING_NEWS_SAGA_REQUEST = "@saga/FETCH_TRENDING_NEWS_SAGA_REQUEST";
+export const FETCH_BYMA_STOCKS_DATA_SAGA_REQUEST = "@saga/FETCH_BYMA_STOCKS_DATA_SAGA_REQUEST";
+export const FETCH_WATCHLISTS_SAGA_REQUEST = "@saga/FETCH_WATCHLISTS_SAGA_REQUEST";
 
 //Alerts
 // export const addAlertSagaRequest = alert => ({
@@ -64,4 +66,12 @@ export const fetchNegotiableInstrumentsAlertsSagaRequest = () => ({
 
 export const fetchTrendingNewsSagaRequest = () => ({
     type: FETCH_TRENDING_NEWS_SAGA_REQUEST,
+});
+
+export const fetchBymaStocksDataSagaRequest = () => ({
+    type: FETCH_BYMA_STOCKS_DATA_SAGA_REQUEST,
+});
+
+export const fetchWatchlistsSagaRequest = () => ({
+    type: FETCH_WATCHLISTS_SAGA_REQUEST,
 });

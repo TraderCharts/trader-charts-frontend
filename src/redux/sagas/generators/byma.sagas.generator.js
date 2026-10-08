@@ -11,7 +11,13 @@ import {
     setAlertsDefinition,
     setNegotiableInstrumentsAlertsDefinition,
 } from "../../actionDefinitions/alerts.actionDefinitions";
-import { setTrendingNewsDefinition } from "../../actionDefinitions/byma.actionDefinitions";
+import {
+    setTrendingNewsDefinition,
+    setBymaStocksDataDefinition,
+    setLatestBymaStocksDataDefinition,
+    setWatchlistsDefinition,
+    setWatchlistLatestDataDefinition,
+} from "../../actionDefinitions/byma.actionDefinitions";
 import {
     assignNegotiableInstrumentAlertSagaRequest,
     unassignNegotiableInstrumentAlertSagaRequest,
@@ -163,4 +169,34 @@ export function* fetchTrendingNews(apiClients) {
     }, {});
 
     yield put(setTrendingNewsDefinition(trendingNews));
+}
+
+export function* fetchBymaStocksData(apiClients, selectedTicker) {
+    const [historicalData, latestData] = yield all([
+        call(apiClients.bymaClient.getBymaStocksData, selectedTicker),
+        call(apiClients.bymaClient.getLatestBymaStocksData, selectedTicker.tickers),
+    ]);
+
+    yield put(setBymaStocksDataDefinition(historicalData));
+    yield put(setLatestBymaStocksDataDefinition(latestData));
+}
+
+//Watchlists
+export function* fetchWatchlists(apiClients) {
+    const watchlists = yield call(apiClients.bymaClient.getWatchlists);
+
+    yield put(setWatchlistsDefinition(watchlists));
+
+    return watchlists;
+}
+
+export function* fetchWatchlistLatestData(apiClients, tickers) {
+    if (!tickers.length) {
+        yield put(setWatchlistLatestDataDefinition([]));
+        return;
+    }
+
+    const latestData = yield call(apiClients.bymaClient.getLatestBymaStocksData, tickers);
+
+    yield put(setWatchlistLatestDataDefinition(latestData));
 }

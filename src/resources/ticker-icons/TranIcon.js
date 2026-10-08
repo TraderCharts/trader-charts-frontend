@@ -1,9 +1,8 @@
 import SvgIcon from "@mui/material/SvgIcon";
 import React from "react";
 
-// I recommend minifying it a bit using this https://jakearchibald.github.io/svgomg/
 const TranIcon = (props) => (
-    <SvgIcon {...props} viewBox="0 0 22 22">
+    <SvgIcon {...props} viewBox="0 0 18 18" style={{ width: 22, height: 22 }}>
         <path fill="#007AC3" d="M0 0h18v18H0z" />
         <path
             fillRule="evenodd"

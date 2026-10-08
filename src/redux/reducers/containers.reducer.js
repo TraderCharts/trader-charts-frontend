@@ -10,7 +10,11 @@ const initialState = {
     showAddIndicator: false,
     showEditIndicator: false,
     showSelectTicker: false,
-    selectedTicker: { code: "AGRO", interval: "D" },
+    selectedTicker: {
+        expression: "AL30D.price + AL29D.price",
+        tickers: ["AL30D", "AL29D"],
+        interval: "D",
+    },
 };
 
 const containersReducer = (state = initialState, action) => {

@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import { Route, Routes, useLocation } from "react-router-dom";
 import { bindActionCreators } from "redux";
 
-import AppUpperNav from "../../components/AppUpperNav";
+import AppUpperNav from "../../containers/AppUpperNav";
 import NotFound from "../../components/NotFound";
 import AlertsSection from "../../containers/Alerts/AlertsSection";
 import EditAlerts from "../../containers/Alerts/EditAlerts";
@@ -17,10 +17,13 @@ import EditIndicator from "../../containers/Indicator/EditIndicator/index";
 import KairosAISection from "../../containers/KairosAI/KairosAISection";
 import SelectTicker from "../../containers/Ticker/SelectTicker";
 import TrendingNewsSection from "../../containers/TrendingNews/TrendingNewsSection";
+import InstrumentDetailsSection from "../../containers/InstrumentDetails/InstrumentDetailsSection";
+import ProfileSection from "../../containers/Profile/ProfileSection";
 import { fetchNegotiableInstruments, fetchBymaStocksData } from "../../redux/actions/byma.action";
 import { fetchIndicatorMetadata } from "../../redux/actions/indicators.action";
 import { clearAuthSagaRequest } from "../../redux/sagas/actions/authentication.action";
 import { changeSelectedTicker } from "../../redux/actions/containers.action";
+import Watchlists from "../../containers/Watchlists/WatchlistsSection";
 
 const appLeftNavWidth = 78;
 
@@ -92,6 +95,12 @@ const MainPage = ({
                     <Route path="/alerts/:id/edit" element={<EditAlerts />} />
                     <Route path="/trendingNews" element={<TrendingNewsSection />} />
                     <Route path="/KairosAI" element={<KairosAISection />} />
+                    <Route
+                        path="/instrumentDetails/:ticker"
+                        element={<InstrumentDetailsSection />}
+                    />
+                    <Route path="/profile" element={<ProfileSection />} />
+                    <Route path="/watchlists" element={<Watchlists />} />
                     <Route path="*" element={<NotFound />} />
                 </Routes>
                 <AddIndicator />

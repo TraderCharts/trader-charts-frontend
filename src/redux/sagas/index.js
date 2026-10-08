@@ -12,6 +12,8 @@ import {
     SAVE_ALERT_SAGA_REQUEST,
     UNASSIGN_LEADER_ACTION_ALERT_SAGA_REQUEST,
     UPDATE_ALERT_SAGA_REQUEST,
+    FETCH_BYMA_STOCKS_DATA_SAGA_REQUEST,
+    FETCH_WATCHLISTS_SAGA_REQUEST,
 } from "./actions/byma.action";
 import { loginFlow } from "./flows/authentication.sagas.flow";
 import {
@@ -25,6 +27,8 @@ import {
     unassignNegotiableInstrumentAlertFlow,
     updateAlertFlow,
     fetchTrendingNewsFlow,
+    fetchBymaStocksDataFlow,
+    fetchWatchlistsFlow,
 } from "./flows/byma.sagas.flow";
 
 export default function* RootSagas(context) {
@@ -55,5 +59,7 @@ export default function* RootSagas(context) {
             context
         ),
         takeLatest(FETCH_TRENDING_NEWS_SAGA_REQUEST, fetchTrendingNewsFlow, context),
+        takeLatest(FETCH_BYMA_STOCKS_DATA_SAGA_REQUEST, fetchBymaStocksDataFlow, context),
+        takeLatest(FETCH_WATCHLISTS_SAGA_REQUEST, fetchWatchlistsFlow, context),
     ]);
 }

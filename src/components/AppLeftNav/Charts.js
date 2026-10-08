@@ -17,20 +17,22 @@ const StyledListItemIcon = styled(ListItemIcon)({
     minWidth: "unset",
     justifyContent: "center",
     alignItems: "center",
+    color: "inherit",
 });
 
-const Charts = ({ selected, onClick }) => {
+const Charts = ({ selected, onClick, sx, placement = "right" }) => {
     const navigate = useNavigate();
     const location = useLocation();
 
     return (
-        <Tooltip key={"Charts"} title={"Advanced charts"} arrow placement="right">
+        <Tooltip key={"Charts"} title={"Advanced charts"} arrow placement={placement}>
             <StyledListItem
                 onClick={() => {
                     onClick();
                     navigate("/charts", { state: { referer: location } });
                 }}
                 selected={selected}
+                sx={sx}
             >
                 <StyledListItemIcon>
                     <InsertChartOutlined />

@@ -1,23 +1,25 @@
 import SvgIcon from "@mui/material/SvgIcon";
 import React from "react";
 
-// I recommend minifying it a bit using this https://jakearchibald.github.io/svgomg/
 const AgroIcon = (props) => (
-    <SvgIcon {...props} viewBox="4 2 14 14">
-        <path d="M14 9A5 5 0 014 9h10z" fill="url(#aqmemidv4)" />
-        <path opacity=".5" d="M14 9H4a5 5 0 1110 0z" fill="#818181" />
+    <SvgIcon {...props} viewBox="0 -0.5 18 18" style={{ width: 40, height: 40 }}>
+        <path d="M4 9 A5 5 0 0 1 14 9" fill="url(#aqmemidv4)" />
+        <path d="M14 9 A5 5 0 0 1 4 9" fill="#818181" />
+
         <path d="M9 9a1 1 0 011-1h4v1H9zM4 9h5a1 1 0 01-1 1H4V9z" fill="#F0F3FA" />
+
+        <circle cx="9" cy="9" r="5" fill="none" stroke="white" strokeWidth="0.5" />
         <defs>
             <linearGradient
                 id="aqmemidv4"
-                x1="11.97"
-                y1="12.6"
-                x2="5.06"
-                y2="6.33"
+                x1="0"
+                y1="0"
+                x2="0"
+                y2="0"
                 gradientUnits="userSpaceOnUse"
             >
                 <stop stopColor="#318C49" />
-                <stop offset="1" stopColor="#318C49" stopOpacity="0" />
+                <stop offset="1" stopColor="#318C49" />
             </linearGradient>
         </defs>
     </SvgIcon>

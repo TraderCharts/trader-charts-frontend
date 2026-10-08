@@ -47,6 +47,8 @@
 ![Prettier](https://img.shields.io/badge/Prettier-3.5.3-FDE2C6?logo=prettier&logoColor=white)
 ![License](https://img.shields.io/badge/License-MIT-C0C0C0)
 
+> **Documentation updated through:** `v9.x`
+
 ---
 
 ## Trader Charts Frontend - Overview
@@ -168,6 +170,8 @@ use the server that retrieves mock data. Please run the following commands:
 - Add, edit and delete indicators
 - Color picker and thickness selector for indicators
 - Tickers search box
+- Expression Builder for ticker selection
+- Financial metrics and mathematical operations for custom expressions
 
 ### ✏️ Drawing Tools
 
@@ -192,10 +196,16 @@ use the server that retrieves mock data. Please run the following commands:
 - Create, edit and delete alerts
 - Alert points table with active field and description
 
-### 🔐 Authentication
+### ⭐ Wathlists
 
-- Auth0 login with Email and Facebook
-- Profile menu with user info
+- Add and remove tickers from favorite Watchlists
+
+### 🔐 Authentication & Authorization
+
+- Auth0 integration with Google, Facebook, Microsoft, Apple and Email login
+- Secure session management (Authentication)
+- Access control for public and private routes (Authorization)
+- Profile menu with user information
 
 ### 🐳 Deployment & Orchestration
 
@@ -206,6 +216,7 @@ use the server that retrieves mock data. Please run the following commands:
 
 ## Trading Charts demo
 
+<!--
 - [Demo Video](https://drive.google.com/file/d/12vBuQgQfU6vP4CiAQe6WRfc9711vaEyW/view?usp=sharing)
 
 <div>
@@ -213,28 +224,47 @@ use the server that retrieves mock data. Please run the following commands:
      <source src="https://drive.google.com/file/d/12vBuQgQfU6vP4CiAQe6WRfc9711vaEyW/view?usp=sharing" type="video/mov">
    </video>
 </div>
+-->
 
 ### Captures
+
+### Drawing Tools
+
+Arrow, Rectangle, FreehandBrush, Linear Regression Channel and more:
+
+![Drawing Tools](assets/img/readme/charts/drawingTools/more_interactive_feats.png)
 
 - Auth0 email login:
 
 ![Login](assets/img/readme/sections/auth0_login.png)
 
-- Charts section:
+- Watchlists section:
 
-![Charts section](assets/img/readme/sections/charts_section.png)
-
-- Alerts section:
-
-![Alerts section](assets/img/readme/sections/alerts_section.png)
+![Watchlists section](assets/img/readme/sections/watchlists_section.png)
 
 - Trending news and topic extraction with AI:
 
 ![trading-news-main-topics](assets/img/readme/sections/trading-news-main-topics.png)
 
+- Trending news and sentimental analysis with AI:
+
+![trading-news-sentiment-analysis](assets/img/readme/trendingNews/trading-news-sentiment-analysis.png)
+
 - Kairos AI Chat. Ask anything!
 
 ![karios-ai](assets/img/readme/sections/karios-ai.png)
+
+- Instrument Details
+
+![Instrument-details](assets/img/readme/instrumentDetails/bonds/bondDetails1.png)
+
+- Bonds Coupon Schedule
+
+![bonds-coupon-schedule](assets/img/readme/instrumentDetails/bonds/bondDetails4.png)
+
+Tickers search & Expression Builder:
+
+![Tickers-search](assets/img/readme/charts/tickers_searchbox.png)
 
 ## 📸 Screenshots
 
@@ -258,73 +288,83 @@ TimeRange selection (1M, 3M, 6M, 1Y, 5Y) and Linear/Log scale toggle:
 
 ![TimeRange selection](assets/img/readme/charts/controlsbar-linear-log-scale.jpg)
 
-### Drawing Tools
-
-Arrow, Rectangle, FreehandBrush, Linear Regression Channel and more:
-
-![Drawing Tools](assets/img/readme/charts/more%20interactive%20feats.png)
-
 ### Day/Week/Month Selection
 
 Candle interval selection on main top bar:
 
 ![Day/Week/Month Selection](assets/img/readme/charts/candle-interval-selection.jpg)
 
-### AI & Trending News
-
-Trending news and sentimental analysis with AI:
-
-![trading-news-sentiment-analysis](assets/img/readme/trendingNews/trading-news-sentiment-analysis.png)
-
 ### Interactive Tools
 
 Interactive components of Fibonacci retracements and parallel channels:
 
-![fibonacci_and_parallel_channel_ic](assets/img/readme/charts/fibonacci_and_parallel_channel_ic.png)
+![fibonacci_and_parallel_channel_ic](assets/img/readme/charts/drawingTools/fibonacci_and_parallel_channel.png)
 
-Interactive components of Trend lines:
+Interactive components of Trend lines, Rays and Extended lines:
 
-![trendlines_ic](assets/img/readme/charts/trendlines_ic.png)
-
-Interactive components of Rays and Extended lines:
-
-![rays_extendLines_ic](assets/img/readme/charts/rays_extendLines_ic.png)
+![trendlines_ic](assets/img/readme/charts/drawingTools/trendlines.png)
 
 Gann fans interactive component:
 
-![gann_fans_ic](assets/img/readme/charts/gann_fans_ic.png)
+![gann_fans_ic](assets/img/readme/charts/drawingTools/gann_fans.png)
+
+Price Range interactive component:
+
+![price_range](assets/img/readme/charts/userInteractions/price-range-measurement-tool.png)
 
 ### Search & Indicators
-
-Tickers search box:
-
-![Tickers search box](assets/img/readme/charts/tickers_searchbox.png)
 
 Indicator's search box:
 
 ![indicators_searchbox](assets/img/readme/charts/indicators_searchbox.png)
 
-Indicator's details:
+Indicator's details % color picker:
 
-![indicator_details_1](assets/img/readme/charts/indicator_details_1.png)
+![indicator_details_styles](assets/img/readme/charts/indicator_details_styles.png)
 
-Indicator's color picker:
+### Watchlists System
 
-![indicator_details_2](assets/img/readme/charts/indicator_details_2.png)
+Edit Watchlists:
+
+![Edit Watchlists](assets/img/readme/watchlists/watchlists_edit.png)
+
+### Instrument Details
+
+- Bonds Cash Flow Payback
+
+![bonds-cash-flow-payback](assets/img/readme/instrumentDetails/bonds/bondDetails2.png)
+
+- Bonds Amortization Schedule
+
+![bonds-amortization-schedule](assets/img/readme/instrumentDetails/bonds/bondDetails3.png)
+
+- Bonds Payment Events
+
+![bonds-payment-events](assets/img/readme/instrumentDetails/bonds/bondDetails5.png)
+
+- Instrument Documentation
+
+![Instrument-details-documentation](assets/img/readme/instrumentDetails/bonds/bondDetails6.png)
 
 ### Alerts System
+
+- Alerts section:
+
+![Alerts section](assets/img/readme/sections/alerts_section.png)
 
 Alerts editable details:
 
 ![Alerts details](assets/img/readme/alerts/alerts_details.png)
-
-![Alerts details fields](assets/img/readme/alerts/alerts_details_fields.png)
 
 ### General
 
 Profile Menu:
 
 ![Profile Menu](assets/img/readme/general/profile_menu_2.png)
+
+Profile Details:
+
+![Profile Details](assets/img/readme/general/profile_details.png)
 
 </details>
 

@@ -6,11 +6,13 @@ import {
     fetchAlertConditionExpressions,
     fetchAlertConditionOperations,
     fetchBymaStocksData,
+    fetchBondTerms,
 } from "../../redux/actions/byma.action";
 import {
     fetchAlertsSagaRequest,
     fetchNegotiableInstrumentsAlertsSagaRequest,
 } from "../../redux/sagas/actions/byma.action";
+import { changeSelectedTicker } from "../../redux/actions/containers.action";
 import AlertPointsTable from "./AlertPointsTable";
 import AlertsTable from "./AlertsTable";
 
@@ -27,6 +29,8 @@ const mapActionsToProps = (dispatch) => ({
     ),
     onFetchAlertConditionExpressions: bindActionCreators(fetchAlertConditionExpressions, dispatch),
     onFetchAlertConditionOperations: bindActionCreators(fetchAlertConditionOperations, dispatch),
+    onChangeSelectedTicker: (value) => dispatch(changeSelectedTicker(value)),
+    onFetchBondTerms: (tickers) => dispatch(fetchBondTerms(tickers)),
 });
 
 const AlertsSection = ({
@@ -35,13 +39,27 @@ const AlertsSection = ({
     onFetchNegotiableInstrumentsAlertsSagaRequest,
     onFetchAlertConditionExpressions,
     onFetchAlertConditionOperations,
+    onChangeSelectedTicker,
+    onFetchBondTerms,
 }) => {
     useEffect(() => {
+        const storedTicker = localStorage.getItem("lastSelectedTicker");
+
+        if (storedTicker) {
+            try {
+                const lastSelectedTicker = JSON.parse(storedTicker);
+
+                onChangeSelectedTicker(lastSelectedTicker);
+                onFetchBondTerms(lastSelectedTicker.tickers);
+            } catch (error) {
+                localStorage.removeItem("lastSelectedTicker");
+            }
+        }
+
         onFetchBymaStocksData();
         onFetchAlertsSagaRequest();
         onFetchNegotiableInstrumentsAlertsSagaRequest();
         onFetchAlertConditionExpressions();
-        onFetchAlertConditionOperations();
         onFetchAlertConditionOperations();
     }, []);
 

@@ -1,6 +1,6 @@
 import ApiClient from "./ApiClient";
 
-export default class BymaClient extends ApiClient {
+export default class AlertsClient extends ApiClient {
     // ---------------------------------- Alerts ----------------------------------
     getAlerts = () => {
         const promise = this.get(`alerts/`);

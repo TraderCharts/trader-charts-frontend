@@ -71,6 +71,7 @@ export default class ApiClient {
         };
         if (auth) {
             headers.Authorization = `Bearer ${auth.accessToken}`;
+            headers["X-User-Sub"] = auth.idTokenPayload.sub;
         }
         const requestConfig = {
             url: urlDomain + apiUrl,

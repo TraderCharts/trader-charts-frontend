@@ -12,6 +12,8 @@ export const bymaStocksDataSelector = (state) => state.byma.bymaStocksData;
 export const alertConditionExpressionsSelector = (state) => state.byma.alertConditionExpressions;
 export const alertConditionOperationsSelector = (state) => state.byma.alertConditionOOperations;
 export const parameter2Selector = (state, parameter2) => parameter2;
+export const watchlistsSelector = (state) => state.byma.watchlists || [];
+export const watchlistLatestDataSelector = (state) => state.byma.watchlistLatestData || [];
 
 export const alertPointsSelector = createSelector(
     [negotiableInstrumentsSelector, alertsSelector],
