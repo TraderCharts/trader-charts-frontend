@@ -1,0 +1,30 @@
+[
+    {
+        "accessToken": "eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIiwiaXNzIjoiaHR0cHM6Ly9zZ29uemFsb2MuYXV0aDAuY29tLyJ9..xpx0NP3vcjSaFY62.6ZNqvuk0-LvLP-TRyoJuJ6qodCc4_6TqYEbjLUeCBDsZbq2aPVSrgBRwxqv23OKsOqF7jJAsIFxnefahcUM3KxKA28sQptWYZ_fFkKYDHRevKrX3PK8UNLsT8Q0FSm5IR5hloV06YCl0SxRFp2tqHIg8Bw9bY5dAO3EoibfoI0kWNvAm6jquo53KzNbDd_rbSlmB9hTaDSDujUWwCQ6zLgdbpnKpszmt1DuvMukBn-4BBlQc-9WBqvS9pi30htWSsSjnpMVHHfu8U-H3S-_r8vv5pWcP9Icb_aQKrw.qjpTvbRfaCFxme1BMJB76Q",
+        "idToken": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlFqZ3lNVUZEUVRGQk5rUTVSREJHUlRjNE56TXpRMFEzTURaQlJUQTBSa1UxT1RReE5rSkRSQSJ9.eyJnaXZlbl9uYW1lIjoiR29uemFsbyIsImZhbWlseV9uYW1lIjoiQ2FubyIsIm1pZGRsZV9uYW1lIjoiU2FuY2hleiIsIm5pY2tuYW1lIjoiR29uemFsbyBTYW5jaGV6IENhbm8iLCJuYW1lIjoiR29uemFsbyBTYW5jaGV6IENhbm8iLCJwaWN0dXJlIjoiaHR0cHM6Ly9wbGF0Zm9ybS1sb29rYXNpZGUuZmJzYnguY29tL3BsYXRmb3JtL3Byb2ZpbGVwaWMvP2FzaWQ9MTAxNjEwNDAyNTgwNjc5OTkmaGVpZ2h0PTUwJndpZHRoPTUwJmV4dD0xNzA5NzUwODgwJmhhc2g9QWZwVUxhVzR3RGVLdEJmeFlES0RJMXIxNEw3UW9Gc1R5OFNMWWtXbTVfZ3diQSIsInVwZGF0ZWRfYXQiOiIyMDI0LTAyLTA1VDE4OjQ4OjAwLjk4MVoiLCJpc3MiOiJodHRwczovL3Nnb256YWxvYy5hdXRoMC5jb20vIiwiYXVkIjoiZ1JVWkIwUlhjb1IwTXdseExjenZVU2JUVkhlWHgwM2EiLCJpYXQiOjE3MDcxNTg4ODEsImV4cCI6MTcwNzE5NDg4MSwic3ViIjoiZmFjZWJvb2t8MTAxNjEwNDAyNTgwNjc5OTkiLCJhdF9oYXNoIjoiY3lDZTc5Z3JEd21LdHQ5bVo3ajVGUSIsInNpZCI6IkoxOWpVZlNuejlMX3IzRU1qb1dka3c1cnZQa29LNk5kIiwibm9uY2UiOiJQQVhxdk91MXN0UW1RcjNncGVfRjdKUncwUDNrQUE4OSJ9.Faxe9uLt5qxJhjpvOT4rdOhO69G5Ue78p_zi3NjgqIYADJmua1egx6bChR38liqaTwRKvY17tSUxVLJPjlfdPShliZm8cNk8P-O_wVHG_9Eomr0E2oXhzuB3A8YePHLrNcTBHZqb4bQJ7i72H7ZdHfp6yPJ48Shv6Gji9f47E6Fj9_yxYUZzyx31NEvBAbah6NlHX2jU3QTlZvucoaTkFp8xhp8AAjDZX-MOnC7R3ZpV1ncqjTAVMT6haMikgIZTsPm6475fyAPBpwKI4PjUydDktg7aMO6Vm7lR7nJBZSGZYvSW_hNSbKcY3G6B-Gk0nmTPg1yCYQji8JYRWpzoCw",
+        "idTokenPayload": {
+            "given_name": "Gonzalo",
+            "family_name": "Cano",
+            "middle_name": "Sanchez",
+            "nickname": "Gonzalo Sanchez Cano",
+            "name": "Gonzalo Sanchez Cano",
+            "picture": "https://platform-lookaside.fbsbx.com/platform/profilepic/?asid=10161040258067999&height=50&width=50&ext=1709750880&hash=AfpULaW4wDeKtBfxYDKDI1r14L7QoFsTy8SLYkWm5_gwbA",
+            "updated_at": "2024-02-05T18:48:00.981Z",
+            "iss": "https://sgonzaloc.auth0.com/",
+            "aud": "gRUZB0RXcoR0MwlxLczvUSbTVHeXx03a",
+            "iat": 1707158881,
+            "exp": 1707194881,
+            "sub": "facebook|10161040258067999",
+            "at_hash": "cyCe79grDwmKtt9mZ7j5FQ",
+            "sid": "J19jUfSnz9L_r3EMjoWdkw5rvPkoK6Nd",
+            "nonce": "PAXqvOu1stQmQr3gpe_F7JRw0P3kAA89"
+        },
+        "appState": null,
+        "refreshToken": null,
+        "state": "OCIF9A4mhEJjlq3uQw9mNpVHpjoH4AGZ",
+        "expiresIn": 7200,
+        "tokenType": "Bearer",
+        "scope": "openid profile",
+        "id": 1
+    }
+]

@@ -1,0 +1,20 @@
+import SvgIcon from "@mui/material/SvgIcon";
+import React from "react";
+
+const ArgentinaIcon = (props) => (
+    <SvgIcon {...props} viewBox="0 -0.5 18 19">
+        <g transform="translate(0, 1)">
+            <path d="m0 0h18v5H0zm0 13h18v5H0z" fill="#1e88e5" />
+            <path d="m0 5h18v8H0z" fill="#f8f9fd" />
+            <path
+                d="m12 8.94l-1.5.81.75 1.5-1.5-.75-.7 1.5-.8-1.5-1.5.75.75-1.65L6 8.94l1.5-.54-.75-1.65 1.5.75.8-1.5.7 1.5 1.5-.75-.75 1.65 1.5.54z"
+                fill="#fbc02d"
+            />
+        </g>
+    </SvgIcon>
+);
+
+ArgentinaIcon.displayName = "ArgentinaIcon";
+ArgentinaIcon.muiName = "SvgIcon";
+
+export default ArgentinaIcon;
